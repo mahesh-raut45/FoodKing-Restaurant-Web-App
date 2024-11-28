@@ -1,0 +1,64 @@
+.container {
+    width: 80%;
+
+    margin: 120px auto;
+    border-radius: 20px;
+}
+
+.background_banner {
+    background: url(https://foodking-react.vercel.app/assets/img/banner/main-cta-bg.jpg);
+    background-size: cover;
+    padding: 120px 60px;
+    height: 215px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.small {
+    font-size: 19px;
+    font-weight: 600;
+    color: #ffb936;
+    text-transform: uppercase;
+}
+
+.yellow {
+    color: #ffb936;
+}
+
+.title_heading {
+    font-size: 65px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: Barlow Condensed, sans-serif;
+    margin: 0;
+    color: white;
+}
+
+.order_btn {
+    background-color: white !important;
+    color: black;
+}
+
+.delivery_man {
+    position: absolute;
+    top: -62px;
+    right: -80px;
+    transition: all 1s
+}
+
+.delivery_man:hover {
+    transform: translateX(-70px)
+}
+
+.arrow_shape {
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    right: 325px;
+}
+
+.frame_shape {
+    position: absolute;
+    bottom: 62%;
+    left: 52%;
+}

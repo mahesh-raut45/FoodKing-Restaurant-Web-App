@@ -1,0 +1,79 @@
+.hero_container {
+    max-width: 1314px;
+    width: 100%;
+    /* border: 2px solid black; */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 120px 0 100px;
+}
+
+.row {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+}
+
+.left span {
+    font-weight: bold;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+span {
+    color: #a40505;
+}
+
+.left h2 {
+    font-size: 70px;
+    line-height: 30%;
+    font-weight: 100;
+    text-transform: uppercase;
+    font-family: fantasy;
+}
+
+.right {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.hero_buttons {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    border: none;
+    color: #a40505;
+    /* background: #a40505; */
+    transition: all .4s ease-in-out;
+}
+
+.hero_buttons:hover {
+    /* width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    border: none; */
+    background: #a40505;
+    color: aliceblue;
+}
+
+.food_category_slider {
+    /* border: 1px solid black; */
+    width: 100%;
+    display: flex;
+    /* flex-direction: column; */
+    gap: 30px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.food_category_list {
+    overflow: auto;
+    margin: 0 25px;
+}
+
+.food_category_list::-webkit-scrollbar {
+    display: none;
+}

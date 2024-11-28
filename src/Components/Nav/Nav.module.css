@@ -1,0 +1,130 @@
+.nav_top {
+    display: flex;
+    height: 46px;
+}
+
+.nav_top_container {
+    display: flex;
+    align-items: center;
+    width: 70%;
+    background: #d9d9d9;
+}
+
+.nav_top_social_icon {
+    display: flex;
+    /* align-items: center; */
+    align-items: center;
+    background: #FF5722;
+    width: 32%;
+    justify-content: center;
+    gap: 10px;
+}
+
+span {
+    color: red;
+}
+
+.small_icon {
+    width: 35px;
+}
+
+.nav_top_list {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.nav_top_list li {
+    list-style: none;
+}
+
+.truck_icon {
+    display: flex;
+    align-items: center;
+}
+
+hr {
+    margin: 0px;
+}
+
+/* .nav {
+
+} */
+
+.nav_fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+}
+
+.nav_container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 112px;
+    align-items: center;
+    background-color: #d9d9d9;
+}
+
+.nav_left,
+.nav_right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.nav_logo {
+    width: 85px;
+    border-radius: 50%;
+}
+
+.nav_header {
+    font-size: 2.2vw;
+    font-weight: 800;
+}
+
+.nav_cart {
+    position: relative;
+    cursor: pointer;
+}
+
+.nav_cart_logo {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.cart_counter {
+    position: absolute;
+    right: 0px;
+    width: 17px;
+    height: 17px;
+    background: bisque;
+    border-radius: 50%;
+    /* display: flex; */
+    text-align: center;
+}
+
+.nav_contactus {
+    height: 50px;
+    width: 170px;
+    background: #d12525;
+    color: white;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.6s ease;
+}
+
+.nav_contactus:hover {
+    background-color: #00813d;
+    scale: 1.1;
+}
+
+.nav_menu {
+    height: 50px;
+    cursor: pointer;
+}

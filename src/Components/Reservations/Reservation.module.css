@@ -1,0 +1,61 @@
+.back_btn {
+    display: inline-block;
+    border: 1px solid;
+    /* justify-content: flex-start; */
+    padding: 7px;
+    background-color: #ff5722;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container {
+    /* border: 2px solid black; */
+    width: 1000px;
+    height: 700px;
+    margin: 0 auto;
+    background: url(https://img.freepik.com/premium-vector/food-drink-pattern-background_554445-949.jpg?w=740);
+    background-size: cover;
+    border-radius: 20px;
+}
+
+.reservations {
+    width: 80%;
+    border: 1px solid black;
+    height: 85%;
+    margin: 40px auto;
+    text-align: center;
+    color: #001F3F;
+}
+
+.title {
+    font-size: 44px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.reservation_form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.rows {
+    width: 350px;
+    height: 65px;
+}
+
+.rows input {
+    width: 350px;
+    height: 65px;
+    background: border-box;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.input_wide {
+    width: 50%;
+}

@@ -1,0 +1,54 @@
+.main_heading {
+    text-align: center;
+    color: #ff5722;
+    font-size: 40px;
+    font-family: cursive;
+    font-weight: 700;
+}
+
+.container {
+    width: 80%;
+    /* border: 2px solid black; */
+    height: 300px;
+    margin: 0 auto;
+}
+
+.cover_image {
+    background-image: url("../../photos/background.jpg");
+    height: 60%;
+    background-size: cover;
+    /* opacity: 0.8; */
+    padding: 60px 60px;
+    border-radius: 15px;
+}
+
+.row {
+    /* border: 2px solid white; */
+    display: flex;
+    color: white;
+    line-height: 20px;
+}
+
+.column {
+    transition: all 0.6s ease;
+}
+
+.column:hover {
+    scale: 1.1;
+}
+
+.single_food_icon {
+    display: flex;
+    flex-direction: column;
+}
+
+.food_icon {
+    height: 50px;
+    width: 50px;
+    color: #ffb936;
+}
+
+.content_heading {
+    font-size: 21px;
+    text-transform: uppercase;
+}
