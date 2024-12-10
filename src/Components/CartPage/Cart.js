@@ -3,6 +3,7 @@ import styles from "./Cart.module.css";
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { Button } from "../Button/Button";
+import { toast } from "react-toastify";
 
 class Cart extends Component {
   constructor(props) {
@@ -81,12 +82,30 @@ class Cart extends Component {
     });
   };
 
+  //  Handle Checkout
+  handleCheckout = () => {
+    const { finalSubtotal } = this.state;
+    if (finalSubtotal > 0) {
+      toast.success(
+        `Your order Placed Successfully!
+         Total Amount: $ ${finalSubtotal}`,
+        {
+          position: "bottom-right",
+        }
+      );
+    } else {
+      toast.warn("Card is Empty!", {
+        position: "bottom-right",
+      });
+    }
+  };
+
   render() {
     const { cartItemsArr } = this.props;
     console.log("inside cart ", cartItemsArr);
     return (
       <>
-        <Link to="/">
+        <Link to="/home">
           <h2 className={styles.homepage_link}>{"<"} Home Page</h2>
         </Link>
         <div className={styles.container}>
@@ -175,7 +194,7 @@ class Cart extends Component {
                 </span>
               </li>
             </ul>
-            <div className={styles.checkout_btn}>
+            <div className={styles.checkout_btn} onClick={this.handleCheckout}>
               <Button text="Checkout" />
             </div>
           </div>

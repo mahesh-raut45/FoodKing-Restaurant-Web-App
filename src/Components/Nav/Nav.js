@@ -26,7 +26,7 @@ class Nav extends Component {
   }
 
   handleScroll = () => {
-    const isScrolled = window.scrollY > 100;
+    const isScrolled = window.scrollY > 49;
     if (isScrolled !== this.state.scrolled) {
       this.setState({ scrolled: isScrolled });
     }
@@ -44,10 +44,10 @@ class Nav extends Component {
             this.setState({
               userDetails: docSnap.data(),
             });
-            console.log(docSnap.data());
-            toast.success("User logged in successfully!", {
-              position: "top-right",
-            });
+            // console.log(docSnap.data());
+            // toast.success("User logged in successfully!", {
+            //   position: "top-right",
+            // });
           } else {
             console.log("User is not logged in");
           }

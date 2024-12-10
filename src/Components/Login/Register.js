@@ -120,7 +120,7 @@ const Register = () => {
           <br />
           <button>Sign Up</button>
           <p>
-            Already a user? <a href="#">Sign in</a>
+            Already a user? <a href="/">Sign in</a>
           </p>
         </form>
       </div>

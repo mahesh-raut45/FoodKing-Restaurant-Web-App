@@ -72,18 +72,6 @@ class Hero extends Component {
                     />
                   </li>
                 ))}
-                {/* <li>
-                  <FoodCard />
-                </li>
-                <li>
-                  <FoodCard />
-                </li>
-                <li>
-                  <FoodCard />
-                </li>
-                <li>
-                  <FoodCard />
-                </li> */}
               </ul>
             </div>
           </div>

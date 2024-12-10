@@ -1,0 +1,44 @@
+.container {
+    background-image: url('https://foodking-react.vercel.app/assets/img/banner/main-bg.jpg');
+    margin: 10%;
+    height: 500px;
+    position: relative;
+    border-radius: 15px;
+}
+
+.book_now {
+    position: absolute;
+    top: 50%;
+    right: 15%;
+}
+
+.text {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-top: 8%;
+    padding-left: 50px;
+    text-transform: uppercase;
+}
+
+.text h2 {
+    font-size: 56px;
+}
+
+.customer_support {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.customer_support span {
+    color: white;
+    font-size: 20px;
+}
+
+.call_icon {
+    width: 3em;
+    height: 3em;
+    color: #04b304;
+}

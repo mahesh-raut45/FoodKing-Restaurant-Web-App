@@ -1,9 +1,6 @@
 import { useState } from "react";
 import styles from "./Register.module.css";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firabaseInit";
 import { toast } from "react-toastify";
 
@@ -15,9 +12,9 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, userData.email, userData.password);
-      toast.success("User Logged In successfully!", {
-        position: "top-right",
-      });
+      // toast.success("User Logged In successfully!", {
+      //   position: "top-right",
+      // });
 
       window.location.href = "/home";
     } catch (error) {
@@ -65,7 +62,7 @@ const Login = () => {
         <br />
         <button>Sign Up</button>
         <p>
-          New a user? <a href="#">Register</a>
+          New user? <a href="/register">Register</a>
         </p>
       </form>
     </div>
