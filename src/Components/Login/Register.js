@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firabaseInit";
 import { doc, setDoc } from "firebase/firestore";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../Redux/userSlice";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -12,37 +14,58 @@ const Register = () => {
     email: "",
     password: "",
   });
-  const handleSubmit = async (e) => {
+
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(userData);
-    // toast("User register successfully!");
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        userData.email,
-        userData.password
-      );
-      const user = auth.currentUser;
-      console.log(user);
-      if (user) {
-        await setDoc(doc(db, "Users", user.uid), {
-          email: user.email,
-          fName: userData.fName,
-          lName: userData.lName,
-          password: userData.password,
+    // Dispatch asyncThunk
+    // if fulfilled then success / failed
+    dispatch(registerUser(userData)).then((result) => {
+      if (registerUser.fulfilled.match(result)) {
+        toast.success("User registered successfully!", {
+          position: "top-right",
+        });
+      } else {
+        toast.error(`Failed to register user! ${result.payload}`, {
+          position: "top-right",
         });
       }
-      console.log("User register successfully!");
-      toast.success("User register successfully!", {
-        position: "top-right",
-      });
-    } catch (error) {
-      console.log(error.message);
-      toast.error(`Failed to register user!, ${error.message}`, {
-        position: "top-right",
-      });
-    }
+    });
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // console.log(userData);
+  //   // toast("User register successfully!");
+  //   try {
+  //     await createUserWithEmailAndPassword(
+  //       auth,
+  //       userData.email,
+  //       userData.password
+  //     );
+  //     const user = auth.currentUser;
+  //     console.log(user);
+  //     if (user) {
+  //       await setDoc(doc(db, "Users", user.uid), {
+  //         email: user.email,
+  //         fName: userData.fName,
+  //         lName: userData.lName,
+  //         password: userData.password,
+  //       });
+  //     }
+  //     console.log("User register successfully!");
+  //     toast.success("User register successfully!", {
+  //       position: "top-right",
+  //     });
+  //   } catch (error) {
+  //     console.log(error.message);
+  //     toast.error(`Failed to register user!, ${error.message}`, {
+  //       position: "top-right",
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -54,13 +77,9 @@ const Register = () => {
           <input
             id="fname"
             type="text"
+            value={userData.fName}
             onChange={(e) =>
-              setUserData({
-                fName: e.target.value,
-                lName: userData.lName,
-                email: userData.email,
-                password: userData.password,
-              })
+              setUserData({ ...userData, fName: e.target.value })
             }
             placeholder="First Name..."
             required
@@ -71,13 +90,9 @@ const Register = () => {
           <input
             id="lname"
             type="text"
+            value={userData.lName}
             onChange={(e) =>
-              setUserData({
-                fName: userData.fName,
-                lName: e.target.value,
-                email: userData.email,
-                password: userData.password,
-              })
+              setUserData({ ...userData, lName: e.target.value })
             }
             placeholder="Last Name..."
             required
@@ -88,13 +103,9 @@ const Register = () => {
           <input
             id="email"
             type="email"
+            value={userData.email}
             onChange={(e) =>
-              setUserData({
-                fName: userData.fName,
-                lName: userData.lName,
-                email: e.target.value,
-                password: userData.password,
-              })
+              setUserData({ ...userData, email: e.target.value })
             }
             placeholder="Email..."
             required
@@ -107,21 +118,20 @@ const Register = () => {
             id="password"
             type="password"
             placeholder="Password..."
+            value={userData.password}
             onChange={(e) =>
-              setUserData({
-                fName: userData.fName,
-                lName: userData.lName,
-                email: userData.email,
-                password: e.target.value,
-              })
+              setUserData({ ...userData, password: e.target.value })
             }
             required
           />
           <br />
-          <button>Sign Up</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Signing Up..." : "Sign Up"}
+          </button>
           <p>
             Already a user? <a href="/">Sign in</a>
           </p>
+          {error && <p style={{ color: "blue" }}>{error}</p>}
         </form>
       </div>
     </>

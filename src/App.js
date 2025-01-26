@@ -6,14 +6,21 @@ import { data } from "./FoodData/FoodData";
 import React from "react";
 import { ChooseUs } from "./Components/ChooseUs/ChooseUs";
 import { Cart } from "./Components/CartPage/Cart";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import { DeliveryBanner } from "./Components/FastDelivery/DeliveryBanner";
 import { Reservation } from "./Components/Reservations/Reservations";
 import { SeatBook } from "./Components/Reservations/SeatBook";
 import { Register } from "./Components/Login/Register";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Login } from "./Components/Login/Login";
+import Page404 from "./PageNotFound/Page404";
 
 class App extends Component {
   constructor() {
@@ -49,6 +56,19 @@ class App extends Component {
     console.log("inside cart: ", cartCount);
     console.log("cart arr :", cartItems);
   };
+
+  // router = createBrowserRouter([
+  //   {
+  //     path: "/",
+  //     element: <Nav />,
+  //     errorElement: <Page404 />,
+  //     children: [
+  //       { index: true, element: <Login /> },
+  //       { path: "register", element: <Register /> },
+  //       { path: "home", element: <Hero /> },
+  //     ],
+  //   },
+  // ]);
 
   render() {
     // document.title = "FoodKing - Fast Food Restaurant";
