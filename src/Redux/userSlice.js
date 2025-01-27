@@ -1,8 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth, db } from "../firabaseInit";
 import { doc, setDoc } from "firebase/firestore";
 
+// AsynThuck for register user
 export const registerUser = createAsyncThunk(
   "user/register",
   async (userData, { rejectWithValue }) => {
@@ -34,11 +38,33 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+// Async thunk for user login
+export const loginUser = createAsyncThunk(
+  "user/login",
+  async ({ logInEmail, loginPassword }, { rejectWithValue }) => {
+    try {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        logInEmail,
+        loginPassword
+      );
+      return userCredentials.user; // return user data on success.
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 // slice
 const userSlice = createSlice({
   name: "user",
   initialState: { user: null, loading: false, error: null },
-  reducers: {},
+  reducers: {
+    // logout
+    logout: (state) => {
+      state.user = null;
+    },
+  },
   extraReducers: (builder) => {
     // pending
     builder
@@ -59,4 +85,5 @@ const userSlice = createSlice({
   },
 });
 
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;

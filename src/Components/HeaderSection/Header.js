@@ -23,6 +23,7 @@ class Header extends Component {
             <img
               className={styles.best_deal}
               src="https://foodking-react.vercel.app/assets/img/shape/pizza-text-2.png"
+              alt="best deal"
             />
             <img
               className={`${styles.fried_chicken} ${styles.fade_in}`}

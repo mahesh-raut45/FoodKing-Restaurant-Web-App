@@ -6,13 +6,7 @@ import { data } from "./FoodData/FoodData";
 import React from "react";
 import { ChooseUs } from "./Components/ChooseUs/ChooseUs";
 import { Cart } from "./Components/CartPage/Cart";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { DeliveryBanner } from "./Components/FastDelivery/DeliveryBanner";
 import { Reservation } from "./Components/Reservations/Reservations";
 import { SeatBook } from "./Components/Reservations/SeatBook";
@@ -20,7 +14,7 @@ import { Register } from "./Components/Login/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Login } from "./Components/Login/Login";
-import Page404 from "./PageNotFound/Page404";
+import { LoginPage } from "./Components/Login/LoginPage";
 
 class App extends Component {
   constructor() {
@@ -80,7 +74,7 @@ class App extends Component {
         <ToastContainer />
         <Routes>
           {/* <Register /> */}
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           {}
           <Route

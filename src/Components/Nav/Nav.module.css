@@ -124,6 +124,75 @@ hr {
     scale: 1.1;
 }
 
+.logged_user {
+    position: relative;
+    width: 11vh;
+    /* height: 10vh; */
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+
+.logged_user img {
+    width: inherit;
+}
+
+.logged_user p {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #0D0260;
+    font-family: monospace;
+}
+
+.logged_user:hover .user_actions {
+    opacity: 1;
+    transform: translateY(0);
+    /* Move down to visible position */
+    visibility: visible;
+}
+
+.user_actions {
+    /* display: none; */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    background: #ff5722;
+    padding: 0;
+    width: 150%;
+    text-align: center;
+    opacity: 0;
+    /* Start above */
+    transform: translateY(-10px);
+    visibility: visible;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.user_actions li {
+    list-style: none;
+    padding: 8px 15px;
+    text-align: center;
+}
+
+.user_actions li button {
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+.user_actions li button:hover {
+    color: #007bff;
+}
+
 .nav_menu {
     height: 50px;
     cursor: pointer;

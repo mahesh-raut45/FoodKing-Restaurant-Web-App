@@ -1,29 +1,51 @@
 import { useState } from "react";
 import styles from "./Register.module.css";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firabaseInit";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../Redux/userSlice";
 
 const Login = () => {
   const [userData, setUserData] = useState({ email: "", password: "" });
 
-  const handleSubmit = async (e) => {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      await signInWithEmailAndPassword(auth, userData.email, userData.password);
-      // toast.success("User Logged In successfully!", {
-      //   position: "top-right",
-      // });
+    dispatch(loginUser(userData)).then((result) => {
+      if (loginUser.fulfilled.match(result)) {
+        toast.success("User Logged In successfully!", {
+          position: "bottom-right",
+        });
+        window.location.href = "/home";
+      } else {
+        toast.error(`Failed to login user! ${result.payload}`, {
+          position: "bottom-right",
+        });
+      }
+    });
 
-      window.location.href = "/home";
-    } catch (error) {
-      console.log(error.message);
-      toast.error(`Failed to login user!, ${error.message}`, {
-        position: "top-right",
-      });
-    }
+    setUserData({ email: "", password: "" });
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     await signInWithEmailAndPassword(auth, userData.email, userData.password);
+  //     // toast.success("User Logged In successfully!", {
+  //     //   position: "top-right",
+  //     // });
+
+  //     window.location.href = "/home";
+  //   } catch (error) {
+  //     console.log(error.message);
+  //     toast.error(`Failed to login user!, ${error.message}`, {
+  //       position: "top-right",
+  //     });
+  //   }
+  // };
 
   return (
     <div className={styles.container}>
@@ -34,12 +56,8 @@ const Login = () => {
         <input
           id="email"
           type="email"
-          onChange={(e) =>
-            setUserData({
-              email: e.target.value,
-              password: userData.password,
-            })
-          }
+          value={userData.email}
+          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
           placeholder="Email..."
           required
         />
@@ -51,16 +69,17 @@ const Login = () => {
           id="password"
           type="password"
           placeholder="Password..."
+          value={userData.password}
           onChange={(e) =>
-            setUserData({
-              email: userData.email,
-              password: e.target.value,
-            })
+            setUserData({ ...userData, password: e.target.value })
           }
           required
         />
         <br />
-        <button>Sign Up</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Signing In..." : "Sign In"}
+        </button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <p>
           New user? <a href="/register">Register</a>
         </p>

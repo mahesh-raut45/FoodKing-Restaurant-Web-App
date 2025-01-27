@@ -1,9 +1,6 @@
 import { useState } from "react";
 import styles from "./Register.module.css";
 import { toast } from "react-toastify";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../firabaseInit";
-import { doc, setDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../Redux/userSlice";
 
@@ -25,14 +22,17 @@ const Register = () => {
     dispatch(registerUser(userData)).then((result) => {
       if (registerUser.fulfilled.match(result)) {
         toast.success("User registered successfully!", {
-          position: "top-right",
+          position: "bottom-right",
         });
       } else {
         toast.error(`Failed to register user! ${result.payload}`, {
-          position: "top-right",
+          position: "bottom-right",
         });
       }
     });
+
+    // setting the inputs to default
+    setUserData({ fName: "", lName: "", email: "", password: "" });
   };
 
   // const handleSubmit = async (e) => {

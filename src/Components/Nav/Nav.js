@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { auth, db } from "../../firabaseInit";
 import { doc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
+import man from "../../photos/man.png";
 
 class Nav extends Component {
   state = {
@@ -87,6 +88,7 @@ class Nav extends Component {
                   <img
                     className={styles.small_icon}
                     src="https://cdn-icons-png.flaticon.com/128/713/713311.png"
+                    alt="truck"
                   />
                   Track Your Order
                 </li>
@@ -133,10 +135,6 @@ class Nav extends Component {
               <h1 className={styles.nav_header}>FOODKING</h1>
             </div>
 
-            <div>
-              <h1>{userDetails ? `Welcome ${userDetails.fName}` : ""}</h1>
-            </div>
-
             <div className={styles.nav_right}>
               <div className={styles.nav_cart}>
                 <Link to="/cart">
@@ -151,14 +149,28 @@ class Nav extends Component {
                 </Link>
               </div>
               <p className={styles.nav_contactus}>CONTACT US</p>
-              <img
+              {/* <img
                 src="https://cdn-icons-png.flaticon.com/128/7787/7787479.png"
                 alt="menu"
                 className={styles.nav_menu}
-              />
+              /> */}
               {userDetails ? (
-                <button onClick={this.handleLogout}>Log Out</button>
+                <>
+                  <div className={styles.logged_user}>
+                    <img src={man} alt="user" />
+                    <p>{userDetails.fName}</p>
+                    {/* user actions */}
+                    <ul className={styles.user_actions}>
+                      <li>
+                        <button onClick={this.handleLogout}>Sign Out</button>
+                      </li>
+                    </ul>
+                  </div>
+                </>
               ) : null}
+              {/* {userDetails ? (
+                <button onClick={this.handleLogout}>Log Out</button>
+              ) : null} */}
             </div>
           </div>
         </div>

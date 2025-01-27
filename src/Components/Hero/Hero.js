@@ -3,7 +3,6 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { FoodCard } from "../FoodCard/FoodCard";
 import styles from "./Hero.module.css";
-import { data } from "../../FoodData/FoodData";
 import React from "react";
 
 class Hero extends Component {

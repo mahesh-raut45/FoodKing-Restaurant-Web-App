@@ -26,7 +26,6 @@ class Cart extends Component {
   }
 
   handleQty = (e, item) => {
-    const { cartSubtotalArr } = this.state;
     const newQty = parseInt(e.target.value);
     if (newQty >= 1) {
       const { cartItemsArr } = this.props;
@@ -129,6 +128,7 @@ class Cart extends Component {
                         <img
                           className={styles.cart_item_img}
                           src={item.image}
+                          alt="item"
                         />
                         <p className={styles.cart_item_name}>{item.name}</p>
                       </td>

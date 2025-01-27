@@ -7,8 +7,7 @@ import { CiStar } from "react-icons/ci";
 class FoodCard extends Component {
   render() {
     // console.log("Food card Probs: ",   this.props.foodData);
-    const { foodData, cartItemsArr, handleCart, name, image, rating, price } =
-      this.props;
+    const { foodData, handleCart, name, rating, price } = this.props;
 
     // console.log(rating);
     return (
