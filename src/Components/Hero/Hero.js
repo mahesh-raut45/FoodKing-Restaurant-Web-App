@@ -9,7 +9,7 @@ class Hero extends Component {
   constructor(props) {
     super(props);
     this.scrollContainerRef = React.createRef();
-    this.scrollAmount = 500;
+    this.scrollAmount = 300;
   }
   scrollBackword = () => {
     this.scrollContainerRef.current.scrollBy({
@@ -24,6 +24,12 @@ class Hero extends Component {
       behavior: "smooth",
     });
   };
+
+  componentDidMount() {
+    setInterval(() => {
+      this.scrollForword();
+    }, 3000);
+  }
 
   render() {
     // console.log(data);

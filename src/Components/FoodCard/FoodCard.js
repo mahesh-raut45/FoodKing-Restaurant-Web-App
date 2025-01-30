@@ -10,6 +10,7 @@ class FoodCard extends Component {
     const { foodData, handleCart, name, rating, price } = this.props;
 
     // console.log(rating);
+
     return (
       <>
         <div className={styles.container}>

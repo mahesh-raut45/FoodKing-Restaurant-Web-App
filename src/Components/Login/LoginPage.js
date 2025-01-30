@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [isActive, setIsActive] = useState(false);
+  const navigate = useNavigate();
   const [loginUserData, setLoginUserData] = useState({
     logInEmail: "",
     loginPassword: "",
@@ -46,7 +47,7 @@ const LoginPage = () => {
         toast.success("User Logged In successfully!", {
           position: "bottom-right",
         });
-        window.location.href = "/home";
+        navigate("/home");
       } else {
         toast.error(`Failed to login user! ${result.payload}`, {
           position: "bottom-right",
