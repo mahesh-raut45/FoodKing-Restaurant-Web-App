@@ -3,7 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth, db } from "../firabaseInit";
+import { auth, db } from "../../firabaseInit";
 import { doc, setDoc } from "firebase/firestore";
 
 // AsynThuck for register user

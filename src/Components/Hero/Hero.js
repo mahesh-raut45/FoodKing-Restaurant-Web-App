@@ -1,88 +1,94 @@
-import { Component } from "react";
+import { Component, useEffect, useRef } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { FoodCard } from "../FoodCard/FoodCard";
 import styles from "./Hero.module.css";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../../Redux/Slice/productSlice";
 
-class Hero extends Component {
-  constructor(props) {
-    super(props);
-    this.scrollContainerRef = React.createRef();
-    this.scrollAmount = 300;
-  }
-  scrollBackword = () => {
-    this.scrollContainerRef.current.scrollBy({
-      left: -this.scrollAmount,
+const Hero = ({ foodData, handleCart, cartItemsArr }) => {
+  const scrollContainerRef = useRef();
+  let scrollAmount = 250;
+  const dispatch = useDispatch();
+  const { products, status, error } = useSelector((state) => state.products);
+  let LunchItems = [];
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     scrollForward();
+  //   }, 3000);
+  // }, []);
+
+  // if (status === "loading") return <p>Loading...</p>;
+  // if (status === "failed") return <p>Error: {error}</p>;
+
+  products.map((item) =>
+    // console.log(item.mealType.filter((mealType) => mealType === "Dinner"))
+    {
+      if (item.mealType.includes("Lunch")) {
+        LunchItems.push(item);
+      }
+    }
+  );
+
+  const scrollBackward = () => {
+    scrollContainerRef.current.scrollBy({
+      left: -scrollAmount,
       behavior: "smooth",
     });
   };
 
-  scrollForword = () => {
-    this.scrollContainerRef.current.scrollBy({
-      left: this.scrollAmount,
+  const scrollForward = () => {
+    scrollContainerRef.current.scrollBy({
+      left: scrollAmount,
       behavior: "smooth",
     });
   };
 
-  componentDidMount() {
-    setInterval(() => {
-      this.scrollForword();
-    }, 3000);
-  }
-
-  render() {
-    // console.log(data);
-    console.log("hero probs: ", this.props);
-    const { foodData, handleCart, cartItemsArr } = this.props;
-    return (
-      <>
-        <div className="hero">
-          <div className={styles.hero_container}>
-            <div className={styles.row}>
-              <div className={styles.left}>
-                <span>crispy, every bite taste</span>
-                <h2>Popular Food Items</h2>
-              </div>
-              <div className={styles.right}>
-                <button
-                  className={styles.hero_buttons}
-                  onClick={() => this.scrollBackword()}
-                >
-                  <FaArrowLeft />
-                </button>
-                <button
-                  className={styles.hero_buttons}
-                  onClick={() => this.scrollForword()}
-                >
-                  <FaArrowRight />
-                </button>
-              </div>
+  return (
+    <>
+      <div className="hero">
+        <div className={styles.hero_container}>
+          <div className={styles.row}>
+            <div className={styles.left}>
+              <span>Flavors for royalty</span>
+              <h2>BEst in lunch</h2>
             </div>
-            <div
-              className={styles.food_category_list}
-              ref={this.scrollContainerRef}
-            >
-              <ul className={styles.food_category_slider}>
-                {foodData.map((item, index) => (
-                  <li key={index}>
-                    <FoodCard
-                      foodData={item}
-                      cartItemsArr={cartItemsArr}
-                      name={item.name}
-                      image={item.image}
-                      price={item.price}
-                      rating={item.rating}
-                      handleCart={handleCart}
-                    />
-                  </li>
-                ))}
-              </ul>
+            <div className={styles.right}>
+              <button className={styles.hero_buttons} onClick={scrollBackward}>
+                <FaArrowLeft />
+              </button>
+              <button className={styles.hero_buttons} onClick={scrollForward}>
+                <FaArrowRight />
+              </button>
             </div>
           </div>
+          <div className={styles.food_category_list} ref={scrollContainerRef}>
+            <ul className={styles.food_category_slider}>
+              {LunchItems.map((item, index) => (
+                <li key={index}>
+                  <FoodCard
+                    foodData={item}
+                    name={item.name}
+                    image={item.image}
+                    reviewCount={item.reviewCount}
+                    rating={item.rating}
+                    cartItemsArr={cartItemsArr}
+                    handleCart={handleCart}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </>
-    );
-  }
-}
+      </div>
+    </>
+  );
+};
+
 export { Hero };

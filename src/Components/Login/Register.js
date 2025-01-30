@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./Register.module.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../Redux/userSlice";
+import { registerUser } from "../../Redux/Slice/userSlice";
 
 const Register = () => {
   const [userData, setUserData] = useState({

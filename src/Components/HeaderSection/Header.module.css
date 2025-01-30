@@ -80,6 +80,7 @@
     transform: translateY(20px);
     animation: fadeIn 5s ease-in-out forwards infinite;
     animation-delay: 2s;
+    font-family: cursive;
 }
 
 @keyframes fadeIn {

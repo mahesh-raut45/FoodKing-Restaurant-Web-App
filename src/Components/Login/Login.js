@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./Register.module.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../Redux/userSlice";
+import { loginUser } from "../../Redux/Slice/userSlice";
 
 const Login = () => {
   const [userData, setUserData] = useState({ email: "", password: "" });
