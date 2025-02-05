@@ -6,6 +6,8 @@ import styles from "./Hero.module.css";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../Redux/Slice/productSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TbLoader } from "react-icons/tb";
 
 const Hero = ({ foodData, handleCart, cartItemsArr }) => {
   const scrollContainerRef = useRef();
@@ -18,11 +20,11 @@ const Hero = ({ foodData, handleCart, cartItemsArr }) => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     scrollForward();
-  //   }, 3000);
-  // }, []);
+  useEffect(() => {
+    setInterval(() => {
+      scrollForward();
+    }, 3000);
+  }, []);
 
   // if (status === "loading") return <p>Loading...</p>;
   // if (status === "failed") return <p>Error: {error}</p>;
@@ -70,19 +72,23 @@ const Hero = ({ foodData, handleCart, cartItemsArr }) => {
           </div>
           <div className={styles.food_category_list} ref={scrollContainerRef}>
             <ul className={styles.food_category_slider}>
-              {LunchItems.map((item, index) => (
-                <li key={index}>
-                  <FoodCard
-                    foodData={item}
-                    name={item.name}
-                    image={item.image}
-                    reviewCount={item.reviewCount}
-                    rating={item.rating}
-                    cartItemsArr={cartItemsArr}
-                    handleCart={handleCart}
-                  />
-                </li>
-              ))}
+              {status === "succeeded" ? (
+                LunchItems.map((item, index) => (
+                  <li key={index}>
+                    <FoodCard
+                      foodData={item}
+                      name={item.name}
+                      image={item.image}
+                      reviewCount={item.reviewCount}
+                      rating={item.rating}
+                      cartItemsArr={cartItemsArr}
+                      handleCart={handleCart}
+                    />
+                  </li>
+                ))
+              ) : (
+                <p>{<FontAwesomeIcon icon={TbLoader} />}</p>
+              )}
             </ul>
           </div>
         </div>

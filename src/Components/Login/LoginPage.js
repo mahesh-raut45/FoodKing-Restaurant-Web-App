@@ -182,7 +182,7 @@ const LoginPage = () => {
               placeholder="Password"
               required
             />
-            <Link to="#" className={styles.icon}>
+            <Link to="#" className={styles.forget_password}>
               Forget Your Password
             </Link>
             {error && <p style={{ color: "red" }}>{error}</p>}

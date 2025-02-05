@@ -1,16 +1,8 @@
 import { Component } from "react";
 import styles from "./FoodCard.module.css";
-import { MdFavoriteBorder } from "react-icons/md";
-import { FaShoppingCart, FaStarOfLife } from "react-icons/fa";
-import { CiStar } from "react-icons/ci";
+import { FaShoppingCart } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faStar,
-  faStarAndCrescent,
-  faStarHalf,
-  faStarOfDavid,
-  faStarOfLife,
-} from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 class FoodCard extends Component {
   render() {

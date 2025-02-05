@@ -1,16 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
-    /* margin: 0;
-    padding: 0; */
-    /* box-sizing: border-box; */
     font-family: 'Montserrat', sans-serif;
 }
 
-/* body {
-    background-color: #c9d6ff;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff, );
-} */
+
 
 .container {
     background-color: #fff;
@@ -19,6 +13,7 @@
     position: relative;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 55px;
     overflow: hidden;
     width: 768px;
     max-width: 100%;
@@ -210,4 +205,63 @@
 
 .container.active .toggle_right {
     transform: translateX(200%);
+}
+
+.forget_password {
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3px;
+    text-decoration: none;
+    color: #333;
+}
+
+
+/* mobile view  */
+@media (max-width: 480px) {
+    .container {
+        width: 90%;
+        min-height: 400px;
+    }
+
+    .container form {
+        font-size: 10px;
+        padding: 0 20px;
+    }
+
+    .container form .icon {
+        width: 20px;
+        height: 20px;
+        font-size: 5px;
+    }
+
+    .container span,
+    .forget_password {
+        font-size: 8px;
+    }
+
+    .container input {
+        padding: 8px 12px;
+        font-size: 10px;
+        width: 80%;
+    }
+
+    .container button {
+        font-size: 8px;
+    }
+
+    .toggle_panel {
+        padding: 0;
+    }
+
+    .toggle_panel h1 {
+        font-size: 18px;
+    }
+
+    .toggle_panel p {
+        font-size: 10px;
+        margin: 8px 0;
+    }
+
 }

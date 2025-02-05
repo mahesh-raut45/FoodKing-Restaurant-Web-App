@@ -26,7 +26,9 @@
     /* border: 2px solid white; */
     display: flex;
     color: white;
-    line-height: 20px;
+    line-height: 19px;
+    gap: 40px;
+    align-items: center;
 }
 
 .column {
@@ -35,6 +37,7 @@
 
 .column:hover {
     scale: 1.1;
+    cursor: pointer;
 }
 
 .single_food_icon {
@@ -49,6 +52,10 @@
 }
 
 .content_heading {
-    font-size: 21px;
+    font-size: 20px;
     text-transform: uppercase;
+}
+
+.content_heading p {
+    font-size: 15px;
 }
