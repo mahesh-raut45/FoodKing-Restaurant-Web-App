@@ -42,3 +42,40 @@
     height: 3em;
     color: #04b304;
 }
+
+/* mobile view */
+@media (max-width: 480px) {
+    .container {
+        margin: 0 auto;
+        height: 200px;
+        width: 90%;
+    }
+
+    .text {
+        position: absolute;
+        /* padding-top: 20%; */
+        padding-left: 15px;
+    }
+
+    .text h2 {
+        font-size: 14px;
+    }
+
+    .call_icon {
+        position: relative;
+        top: 9px;
+        left: 9px;
+        font-size: 8px;
+    }
+
+    .customer_support span {
+        position: relative;
+        right: 41px;
+    }
+
+    .book_now {
+        position: absolute;
+        top: 45%;
+        right: 10%;
+    }
+}

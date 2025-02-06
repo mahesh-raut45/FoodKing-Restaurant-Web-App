@@ -77,3 +77,39 @@ span {
 .food_category_list::-webkit-scrollbar {
     display: none;
 }
+
+/* mobile view */
+@media (max-width: 480px) {
+    .hero_container {
+        padding: 50px 0 50px;
+        width: 90%;
+    }
+
+    .row {
+        margin: 0 10px;
+    }
+
+    .left h2 {
+        font-size: 15px;
+        /* line-height: 30%; */
+        font-weight: 600;
+    }
+
+    .right {
+        gap: 10px;
+    }
+
+    .right button {
+        width: 30px;
+        height: 30px;
+        line-height: normal;
+    }
+
+    .food_category_list {
+        margin: 0 5px;
+    }
+
+    .food_category_slider {
+        gap: 10px;
+    }
+}

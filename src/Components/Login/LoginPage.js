@@ -7,10 +7,11 @@ import {
   faGooglePlusG,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, registerUser } from "../../Redux/Slice/userSlice";
 import { toast } from "react-toastify";
+import { auth } from "../../firabaseInit";
 
 const LoginPage = () => {
   const [isActive, setIsActive] = useState(false);
@@ -29,6 +30,15 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.user);
+
+  // if user is logged in then navigate to home page
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/home");
+      }
+    });
+  }, []);
 
   //   for switching between sign in and sign up
   const handleRegister = () => {

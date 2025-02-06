@@ -124,3 +124,32 @@
 .item_rating span {
     color: #878786;
 }
+
+/* mobile view */
+@media (max-width: 480px) {
+    .container {
+        width: 150px;
+        height: 270px;
+        gap: 2px;
+    }
+
+    .food_item {
+        width: 144px;
+    }
+
+    .addtocart_btn {
+        width: 60%;
+        height: 22px;
+        font-size: 10px;
+        font-weight: 600;
+        gap: 7px;
+    }
+
+    /* .bottum_info {
+        gap: 0px;
+    } */
+
+    .bottum_info h3 {
+        font-size: 10px;
+    }
+}
