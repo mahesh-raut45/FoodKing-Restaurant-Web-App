@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Login } from "./Components/Login/Login";
 import { LoginPage } from "./Components/Login/LoginPage";
+import { SingleFoodItem } from "./Components/SingleFoodItem/SingleFoodItem";
 
 class App extends Component {
   constructor() {
@@ -86,14 +87,13 @@ class App extends Component {
                   foodData={foodData}
                   cartItemsArr={cartItems}
                   handleCart={this.handleCart}
-                  // scrollBackword={this.scrollBackword}
-                  // scrollForword={this.scrollForword}
                 />
                 <ChooseUs />
                 <SeatBook />
               </>
             }
           />
+          {/* <Route path="/foodItem" element={<SingleFoodItem />} /> */}
 
           <Route
             path="/cart"
