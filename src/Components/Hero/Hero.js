@@ -6,17 +6,16 @@ import styles from "./Hero.module.css";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../Redux/Slice/productSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TbLoader } from "react-icons/tb";
-import { SingleFoodItem } from "../SingleFoodItem/SingleFoodItem";
 import { useNavigate } from "react-router-dom";
 
 const Hero = ({ foodData, handleCart, cartItemsArr }) => {
   const scrollContainerRef = useRef();
   const isScrollBlocked = useRef(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   let scrollAmount = 250;
-  const dispatch = useDispatch();
+  // taking from ProductSlice
   const { products, status, error } = useSelector((state) => state.products);
   let LunchItems = [];
 
@@ -53,15 +52,10 @@ const Hero = ({ foodData, handleCart, cartItemsArr }) => {
       });
     }
   };
-  const stopScroll = (e) => {
-    console.log(e.target);
-  };
 
-  const handleItemDetails = (e) => {
-    // console.log(e.target);
-    // const item = e.target;
-    // <SingleFoodItem item={item} />;
-    // navigate("/foodItem");
+  const goToFooItem = (id) => {
+    console.log(id);
+    navigate(`/foodItem/${id}`);
   };
 
   return (
@@ -85,10 +79,10 @@ const Hero = ({ foodData, handleCart, cartItemsArr }) => {
           <div className={styles.food_category_list} ref={scrollContainerRef}>
             <ul className={styles.food_category_slider}>
               {status === "succeeded" ? (
-                LunchItems.map((item, index) => (
+                LunchItems.map((item) => (
                   <li
-                    key={index}
-                    onClick={handleItemDetails}
+                    key={item.id}
+                    onClick={() => goToFooItem(item.id)}
                     onMouseEnter={() => (isScrollBlocked.current = true)}
                     onMouseLeave={() => (isScrollBlocked.current = false)}
                   >
@@ -104,7 +98,7 @@ const Hero = ({ foodData, handleCart, cartItemsArr }) => {
                   </li>
                 ))
               ) : (
-                <p>{<FontAwesomeIcon icon={TbLoader} />}</p>
+                <p>Loading...</p>
               )}
             </ul>
           </div>

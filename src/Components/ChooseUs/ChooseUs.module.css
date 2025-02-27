@@ -1,6 +1,6 @@
 .main_heading {
     text-align: center;
-    color: #ff5722;
+    color: var(--orange);
     font-size: 40px;
     font-family: cursive;
     font-weight: 700;
@@ -25,7 +25,7 @@
 .row {
     /* border: 2px solid white; */
     display: flex;
-    color: white;
+    color: var(--white);
     line-height: 19px;
     gap: 40px;
     align-items: center;
@@ -48,7 +48,7 @@
 .food_icon {
     height: 50px;
     width: 50px;
-    color: #ffb936;
+    color: var(--yellow);
 }
 
 .content_heading {

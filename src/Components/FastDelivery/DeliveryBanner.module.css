@@ -17,12 +17,12 @@
 .small {
     font-size: 19px;
     font-weight: 600;
-    color: #ffb936;
+    color: var(--yellow);
     text-transform: uppercase;
 }
 
 .yellow {
-    color: #ffb936;
+    color: var(--yellow);
 }
 
 .title_heading {
@@ -31,12 +31,12 @@
     text-transform: uppercase;
     font-family: Barlow Condensed, sans-serif;
     margin: 0;
-    color: white;
+    color: var(--white);
 }
 
 .order_btn {
-    background-color: white !important;
-    color: black;
+    background-color: var(--white) !important;
+    color: var(--black);
 }
 
 .delivery_man {

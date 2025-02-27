@@ -5,7 +5,7 @@ export const fetchProducts = createAsyncThunk(
   async () => {
     const response = await fetch("https://dummyjson.com/recipes");
     const data = await response.json();
-    console.log(data.recipes);
+    console.log(data.recipes.mealType);
     return data.recipes;
   }
 );

@@ -21,7 +21,7 @@
 }
 
 span {
-    color: #a40505;
+    color: var(--orange);
 }
 
 .left h2 {
@@ -44,7 +44,7 @@ span {
     line-height: 60px;
     border-radius: 50%;
     border: none;
-    color: #a40505;
+    color: var(--base);
     /* background: #a40505; */
     transition: all .4s ease-in-out;
 }
@@ -55,8 +55,8 @@ span {
     line-height: 60px;
     border-radius: 50%;
     border: none; */
-    background: #a40505;
-    color: aliceblue;
+    background: var(--orange);
+    color: var(--white);
 }
 
 .food_category_slider {

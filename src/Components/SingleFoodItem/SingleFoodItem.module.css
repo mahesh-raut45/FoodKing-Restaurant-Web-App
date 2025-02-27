@@ -3,10 +3,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: white;
-    padding: 20px;
+    background: var(--white);
+    padding: 40px 5px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
     max-width: 900px;
     margin: auto;
 }
@@ -20,11 +20,17 @@
 
 .foodImage {
     width: 100%;
-    max-width: 400px;
-    border-radius: 10px;
+    max-width: 500px;
+    border-radius: 15px;
 }
 
 /* Details Section */
+.calories {
+    margin: 0;
+    font-size: 16px;
+    color: var(--gray-text);
+}
+
 .details {
     width: 100%;
     text-align: center;
@@ -32,13 +38,14 @@
 }
 
 .foodTitle {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--text-color);
+    text-transform: uppercase;
 }
 
 .foodDescription {
-    color: #666;
+    color: var(--grat-text);
     font-size: 14px;
     margin-top: 8px;
 }
@@ -51,13 +58,13 @@
 .price {
     font-size: 22px;
     font-weight: bold;
-    color: #27ae60;
+    color: var(--base);
 }
 
 .discountedPrice {
     font-size: 18px;
     text-decoration: line-through;
-    color: #e74c3c;
+    color: var(--orange);
     margin-left: 10px;
 }
 
@@ -70,7 +77,8 @@
 }
 
 .quantityButton {
-    background: #ddd;
+    background: var(--bg);
+    width: 50px;
     border: none;
     padding: 8px 12px;
     font-size: 18px;
@@ -80,14 +88,14 @@
 }
 
 .quantityButton:hover {
-    background: #bbb;
+    background: var(--bg);
 }
 
 .quantityInput {
-    width: 40px;
+    width: 60px;
     text-align: center;
     font-size: 18px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 5px;
     padding: 5px;
 }
@@ -96,17 +104,58 @@
 .addToCartButton {
     background: #008000;
     color: white;
-    padding: 12px 20px;
-    font-size: 18px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     margin-top: 15px;
     width: 100%;
+    border-radius: 15px;
+    padding: 15px;
+    font-size: 20px;
 }
 
 .addToCartButton:hover {
     background: #006400;
+}
+
+.review {
+    color: var(--rating);
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.rating {
+    color: var(--gray-text);
+}
+
+.similarItems {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    margin-top: 30px;
+}
+
+.similarItems h2 {
+    text-align: center;
+    font-size: 44px;
+    color: var(--orange);
+    letter-spacing: 15px;
+    font-weight: 800;
+    text-shadow: -5px 4px var(--border);
+}
+
+.similarProductsContainer {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    max-width: 80%;
+    scrollbar-width: none;
+    height: 370px;
+}
+
+.similarProductsContainer li {
+    list-style: none;
+    cursor: pointer;
 }
 
 /* Responsive Design */
@@ -114,6 +163,7 @@
     .container {
         flex-direction: row;
         align-items: flex-start;
+        max-width: 80%;
     }
 
     .imageContainer {
@@ -130,6 +180,9 @@
     }
 
     .addToCartButton {
-        width: auto;
+        width: 100%;
+        border-radius: 15px;
+        padding: 15px;
+        font-size: 20px;
     }
 }

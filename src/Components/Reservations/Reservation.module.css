@@ -3,8 +3,8 @@
     border: 1px solid;
     /* justify-content: flex-start; */
     padding: 7px;
-    background-color: #ff5722;
-    color: white;
+    background-color: var(--orange);
+    color: var(--white);
     border-radius: 10px;
     cursor: pointer;
 }
@@ -28,7 +28,7 @@
     height: 800px;
     margin: 0 auto;
     /* background: url(https://img.freepik.com/premium-vector/food-drink-pattern-background_554445-949.jpg?w=740); */
-    background: #111031;
+    background: var(--button);
     background-size: cover;
     border-radius: 20px;
 }
@@ -39,7 +39,7 @@
     height: 100%;
     margin: 40px auto;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--white);
 }
 
 .title {
@@ -68,7 +68,7 @@
     /* border: 1px solid #9450c8; */
     border-radius: 10px;
     font-size: 20px;
-    background: floralwhite;
+    background: var(--bg);
 }
 
 .input_wide {
@@ -82,6 +82,6 @@
     font-weight: 900;
     border: none;
     border-radius: 15px;
-    background: darkslategrey;
-    color: white;
+    background: var(--border2);
+    color: var(--white);
 }

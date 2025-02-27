@@ -5,7 +5,7 @@
     height: 808px;
     /* border: 1px solid black; */
     display: flex;
-    color: white;
+    color: var(--white);
     justify-content: space-evenly;
     align-items: center;
     font-family: cursive;
@@ -43,6 +43,7 @@
     position: relative;
     top: -244px;
     right: 114%;
+    color: var(--yellow);
 }
 
 .fried_chicken {

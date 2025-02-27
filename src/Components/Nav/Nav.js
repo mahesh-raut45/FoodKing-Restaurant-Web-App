@@ -1,7 +1,7 @@
 import { Component } from "react";
 import styles from "./Nav.module.css";
 import navlogo from "../../photos/navlogo.jpg";
-import { Link } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { auth, db } from "../../firabaseInit";
 import { doc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
@@ -35,7 +35,7 @@ class Nav extends Component {
 
   fetchUserData = async () => {
     auth.onAuthStateChanged(async (user) => {
-      console.log(user);
+      // console.log(user);
       if (user) {
         try {
           const docRef = doc(db, "Users", user.uid);
@@ -51,6 +51,7 @@ class Nav extends Component {
             // });
           } else {
             console.log("User is not logged in");
+            // this.props.navigation.navigate("/");
           }
         } catch (error) {
           toast.error(`User is not logged in!, ${error.message} `, {
@@ -131,8 +132,10 @@ class Nav extends Component {
         >
           <div className={styles.nav_container}>
             <div className={styles.nav_left}>
-              <img className={styles.nav_logo} src={navlogo} alt="nav logo" />
-              <h1 className={styles.nav_header}>FOODKING</h1>
+              <Link to={"/"}>
+                <img className={styles.nav_logo} src={navlogo} alt="nav logo" />
+              </Link>
+              <h1 className={styles.nav_header}>FoodKing</h1>
             </div>
 
             <div className={styles.nav_right}>
@@ -158,7 +161,7 @@ class Nav extends Component {
                 <>
                   <div className={styles.logged_user}>
                     <img src={man} alt="user" />
-                    <p>{userDetails.fName}</p>
+                    {/* <p>{userDetails.fName}</p> */}
                     {/* user actions */}
                     <ul className={styles.user_actions}>
                       <li>
@@ -174,6 +177,7 @@ class Nav extends Component {
             </div>
           </div>
         </div>
+        {/* <Outlet /> */}
       </>
     );
   }

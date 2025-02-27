@@ -1,8 +1,8 @@
 .button {
     height: 66px;
     width: 200px;
-    background: #00813d;
-    color: white;
+    background: var(--green);
+    color: var(--white);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -16,18 +16,18 @@
 }
 
 .button:hover {
-    background-color: #d12525;
+    background-color: var(--orange);
     scale: 1.1;
 }
 
 .white_bg {
-    background-color: white;
-    color: #00813e;
+    background-color: var(--white);
+    color: var(--green);
 }
 
 .white_bg:hover {
-    background-color: white;
-    color: #00813e;
+    background-color: var(--white);
+    color: var(--green);
 }
 
 /* mobile view */
