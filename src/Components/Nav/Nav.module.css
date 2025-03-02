@@ -133,7 +133,8 @@ hr {
 .nav_container {
     display: flex;
     justify-content: space-between;
-    margin: 0 112px;
+    /* margin: 0 112px; */
+    padding: 0 70px;
     align-items: center;
     background-color: var(--bg);
 }
@@ -143,7 +144,6 @@ hr {
     display: flex;
     align-items: center;
     gap: 20px;
-
 }
 
 .nav_logo {
@@ -193,6 +193,8 @@ hr {
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.6s ease;
+    color: var(--white);
+    font-weight: 600;
 }
 
 .nav_contactus:hover {
@@ -202,7 +204,7 @@ hr {
 
 .logged_user {
     position: relative;
-    width: 11vh;
+    width: 70px;
     /* height: 10vh; */
     display: flex;
     flex-direction: column;
@@ -219,10 +221,11 @@ hr {
 
 .logged_user p {
     margin: 0;
-    font-size: 1.2em;
-    font-weight: 600;
-    color: #0D0260;
-    font-family: monospace;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--orange);
+    font-family: 'ADLaM Display';
+    letter-spacing: 3px;
 }
 
 .logged_user:hover .user_actions {
@@ -233,13 +236,13 @@ hr {
 }
 
 .user_actions {
-    /* display: none; */
     position: absolute;
-    top: 100%;
-    left: 0;
+    top: 84%;
+    left: -10px;
     list-style: none;
     background: #ff5722;
     padding: 0;
+    border-radius: 12px;
     width: 150%;
     text-align: center;
     opacity: 0;
@@ -251,7 +254,7 @@ hr {
 
 .user_actions li {
     list-style: none;
-    padding: 8px 15px;
+    padding: 8px 11px;
     text-align: center;
 }
 
@@ -266,7 +269,7 @@ hr {
 
 
 .user_actions li button:hover {
-    color: var(--base);
+    color: var(--white);
 }
 
 .nav_menu {

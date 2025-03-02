@@ -4,21 +4,15 @@ import { Nav } from "./Components/Nav/Nav";
 import React from "react";
 import { ChooseUs } from "./Components/ChooseUs/ChooseUs";
 import { Cart } from "./Components/CartPage/Cart";
-import {
-  BrowserRouter,
-  Outlet,
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { DeliveryBanner } from "./Components/FastDelivery/DeliveryBanner";
 import { Reservation } from "./Components/Reservations/Reservations";
 import { SeatBook } from "./Components/Reservations/SeatBook";
-import { Register } from "./Components/Login/Register";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { LoginPage } from "./Components/Login/LoginPage";
-import { SingleFoodItem } from "./Components/SingleFoodItem/SingleFoodItem";
 import { Page404 } from "./PageNotFound/Page404";
+import { SingleFoodItem } from "./Components/SingleFoodItem/SingleFoodItem";
+import { ThemeProvider } from "@material-tailwind/react";
 
 const App = () => {
   // constructor() {
@@ -101,7 +95,9 @@ const App = () => {
   ]);
 
   return (
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
     // <Router>
     //   <Nav cartCount={cartCount} />
 

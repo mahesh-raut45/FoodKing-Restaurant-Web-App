@@ -2,16 +2,21 @@ import { useEffect, useState } from "react";
 import styles from "./SingleFoodItem.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import SkeletonFoodItem from "../SkeletonI/SkeletonItem";
-import { fetchProducts } from "../../Redux/Slice/productSlice";
+import {
+  fetchProductById,
+  fetchProducts,
+} from "../../Redux/Slice/productSlice";
 import { Card } from "../FoodCard/Card/SmallCard";
+import { CardPlacehoderSkeleton } from "../Skeleton/CardSeleton";
+import Skeleton from "react-loading-skeleton";
 
-const SingleFoodItem = () => {
+export const SingleFoodItem = () => {
   const [quantity, setQuantity] = useState(1);
-  const [product, setProduct] = useState(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [similarProducts, setSimilarProducts] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const increaseQuantity = () => setQuantity(quantity + 1);
   const decreaseQuantity = () => {
@@ -19,39 +24,108 @@ const SingleFoodItem = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    setIsTransitioning(true);
+
+    // Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    const timer = setTimeout(() => {
+      dispatch(fetchProductById(id));
+      dispatch(fetchProducts());
+    }, 1000); // Small delay for transition effect
+
+    return () => clearTimeout(timer);
+  }, [dispatch, id]);
 
   // taking from ProductSlice
-  const { products, status, error } = useSelector((state) => state.products);
-  console.log(products);
-  // extract id from url
-  const { id } = useParams();
-  // console.log(parseInt(id));
+  const { products, status, product } = useSelector((state) => state.products);
+  // console.log("All products: ",products);
 
   useEffect(() => {
-    if (products.length > 0) {
-      const foundProd = products.find((prod) => prod.id === parseInt(id));
-      if (foundProd) {
-        setProduct(foundProd);
-      }
-      const similar = products.filter((item) =>
-        item.tags.some((type) => foundProd.tags.includes(type))
+    if (products.length > 0 && product) {
+      // const foundProd = products.find((prod) => prod.id === parseInt(id));
+      // if (foundProd) {
+      //   setProduct(foundProd);
+      // }
+      const similar = products.filter(
+        (item) =>
+          item.mealType &&
+          item.mealType.some(
+            (type) => product.mealType.includes(type) && item.id !== product.id
+          )
       );
       setSimilarProducts(similar);
     }
-  }, [products, id]);
-  console.log("similar products: ", similarProducts);
+  }, [products, product, id]);
 
-  const goToFooItem = (id) => {
+  //transition end and reset quantity
+  useEffect(() => {
+    if (product) {
+      // setQuantity(1);
+
+      // small delay before showing the new product
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [product]);
+
+  const goToFoodItem = (id) => {
+    setIsTransitioning(true);
     navigate(`/foodItem/${id}`);
   };
 
   return (
     <>
-      {status === "loading" || !product ? (
-        <SkeletonFoodItem />
+      {status === "loading" || !product || isTransitioning ? (
+        <div className="p-6 rounded-lg shadow-lg bg-gray-100 animate-pulse max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Image Skeleton */}
+            <div className="w-full md:w-1/2 h-64 bg-gray-300 rounded-lg"></div>
+
+            {/* Right Side Skeleton */}
+            <div className="w-full md:w-1/2 space-y-4">
+              <div className="h-4 w-32 bg-gray-300 rounded"></div>
+              <div className="h-6 w-3/4 bg-gray-300 rounded"></div>
+
+              {/* Price & Discount Skeleton */}
+              <div className="flex items-center gap-3">
+                <div className="h-6 w-16 bg-gray-300 rounded"></div>
+                <div className="h-4 w-12 bg-gray-300 rounded"></div>
+              </div>
+
+              {/* Quantity Buttons Skeleton */}
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 bg-gray-300 rounded"></div>
+                <div className="h-8 w-12 bg-gray-300 rounded"></div>
+                <div className="h-8 w-8 bg-gray-300 rounded"></div>
+              </div>
+
+              {/* Button Skeleton */}
+              <div className="h-12 w-full bg-gray-300 rounded"></div>
+
+              {/* Ratings Skeleton */}
+              <div className="flex items-center gap-2">
+                <div className="h-4 w-4 bg-gray-300 rounded"></div>
+                <div className="h-4 w-20 bg-gray-300 rounded"></div>
+              </div>
+
+              {/* Cuisine Skeleton */}
+              <div className="h-4 w-32 bg-gray-300 rounded"></div>
+
+              {/* Tags Skeleton */}
+              <div className="flex flex-wrap gap-2">
+                <div className="h-4 w-20 bg-gray-300 rounded"></div>
+                <div className="h-4 w-16 bg-gray-300 rounded"></div>
+                <div className="h-4 w-24 bg-gray-300 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       ) : (
+        // <p> Loading...</p>
         <div className={styles.container}>
           {/* Left Side - Food Image */}
           <div className={styles.imageContainer}>
@@ -72,8 +146,10 @@ const SingleFoodItem = () => {
 
             {/* Price Section */}
             <div className={styles.priceSection}>
-              <span className={styles.price}>$4,600.00</span>
-              <span className={styles.discountedPrice}>$4,800.00</span>
+              <span className={styles.price}>$ {product.price}</span>
+              <span className={styles.discountedPrice}>
+                ${((15 / product.price) * 100).toFixed(2)}
+              </span>
             </div>
 
             {/* Quantity Selector */}
@@ -121,7 +197,7 @@ const SingleFoodItem = () => {
         <h2>Similar Dishes</h2>
         <div className={styles.similarProductsContainer}>
           {similarProducts.map((product) => (
-            <li key={product.id} onClick={() => goToFooItem(product.id)}>
+            <li key={product.id} onClick={() => goToFoodItem(product.id)}>
               <Card product={product} />
             </li>
           ))}
@@ -130,5 +206,3 @@ const SingleFoodItem = () => {
     </>
   );
 };
-
-export { SingleFoodItem };

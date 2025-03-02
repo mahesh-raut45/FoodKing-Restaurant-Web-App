@@ -1,4 +1,4 @@
-import { Component, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { FoodCard } from "../FoodCard/FoodCard";
@@ -7,8 +7,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../Redux/Slice/productSlice";
 import { useNavigate } from "react-router-dom";
+import { CardPlacehoderSkeleton } from "../Skeleton/CardSeleton";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Hero = ({ foodData, handleCart, cartItemsArr }) => {
+const Hero = ({ handleCart, cartItemsArr }) => {
   const scrollContainerRef = useRef();
   const isScrollBlocked = useRef(false);
   const dispatch = useDispatch();
@@ -16,12 +19,12 @@ const Hero = ({ foodData, handleCart, cartItemsArr }) => {
 
   let scrollAmount = 250;
   // taking from ProductSlice
-  const { products, status, error } = useSelector((state) => state.products);
+  const { products, status } = useSelector((state) => state.products);
   let LunchItems = [];
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     setInterval(() => {
@@ -98,7 +101,7 @@ const Hero = ({ foodData, handleCart, cartItemsArr }) => {
                   </li>
                 ))
               ) : (
-                <p>Loading...</p>
+                <FontAwesomeIcon icon={faSpinner} spin />
               )}
             </ul>
           </div>

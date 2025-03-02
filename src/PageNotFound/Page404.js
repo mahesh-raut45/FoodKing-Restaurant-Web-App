@@ -14,7 +14,7 @@ function Page404() {
       </p>
       <button
         onClick={() => {
-          navigate("/");
+          navigate("/home");
         }}
       >
         Go to Home
