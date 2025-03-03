@@ -66,6 +66,7 @@
     display: flex;
     gap: 15px;
     justify-content: center;
+    /* color: var(--white); */
 }
 
 .addtocart_btn {

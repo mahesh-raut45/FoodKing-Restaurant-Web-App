@@ -12,7 +12,6 @@ import Skeleton from "react-loading-skeleton";
 
 export const SingleFoodItem = () => {
   const [quantity, setQuantity] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [similarProducts, setSimilarProducts] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,17 +23,11 @@ export const SingleFoodItem = () => {
   };
 
   useEffect(() => {
-    setIsTransitioning(true);
-
     // Scroll to top smoothly
     window.scrollTo({ top: 0, behavior: "smooth" });
 
-    const timer = setTimeout(() => {
-      dispatch(fetchProductById(id));
-      dispatch(fetchProducts());
-    }, 1000); // Small delay for transition effect
-
-    return () => clearTimeout(timer);
+    dispatch(fetchProductById(id));
+    dispatch(fetchProducts());
   }, [dispatch, id]);
 
   // taking from ProductSlice
@@ -49,37 +42,22 @@ export const SingleFoodItem = () => {
       // }
       const similar = products.filter(
         (item) =>
-          item.mealType &&
-          item.mealType.some(
-            (type) => product.mealType.includes(type) && item.id !== product.id
+          item.tags &&
+          item.tags.some(
+            (type) => product.tags.includes(type) && item.id !== product.id
           )
       );
       setSimilarProducts(similar);
     }
   }, [products, product, id]);
 
-  //transition end and reset quantity
-  useEffect(() => {
-    if (product) {
-      // setQuantity(1);
-
-      // small delay before showing the new product
-      const timer = setTimeout(() => {
-        setIsTransitioning(false);
-      }, 100);
-
-      return () => clearTimeout(timer);
-    }
-  }, [product]);
-
   const goToFoodItem = (id) => {
-    setIsTransitioning(true);
     navigate(`/foodItem/${id}`);
   };
 
   return (
     <>
-      {status === "loading" || !product || isTransitioning ? (
+      {status === "loading" || !product ? (
         <div className="p-6 rounded-lg shadow-lg bg-gray-100 animate-pulse max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row gap-6">
             {/* Image Skeleton */}

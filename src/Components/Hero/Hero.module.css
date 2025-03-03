@@ -30,6 +30,9 @@ span {
     font-weight: 100;
     text-transform: uppercase;
     font-family: fantasy;
+    color: var(--rating);
+    letter-spacing: 10px;
+    text-shadow: -5px 4px #626262;
 }
 
 .right {
@@ -76,6 +79,17 @@ span {
 
 .food_category_list::-webkit-scrollbar {
     display: none;
+}
+
+
+.brand_wrpper .brand_title:before {
+    position: absolute;
+    top: 12px;
+    right: 0;
+    content: "";
+    background-color: var(--border);
+    width: 991px;
+    height: 1px;
 }
 
 /* mobile view */

@@ -1,6 +1,6 @@
 import { Component } from "react";
 import styles from "./FoodCard.module.css";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaEye, FaMehRollingEyes, FaShoppingCart } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
@@ -20,17 +20,10 @@ class FoodCard extends Component {
             alt="food item"
           />
           <div className={styles.btn_container}>
-            <button
-              className={styles.addtocart_btn}
-              onClick={() => handleCart(foodData)}
-            >
-              <FaShoppingCart />
-              {foodData.isInCart ? "Remove From Cart" : "Add to cart"}
+            <button className={styles.addtocart_btn}>
+              {/* <FaMehRollingEyes /> */}
+              {"View"}
             </button>
-
-            {/* <button className={styles.fav_btn}>
-              <MdFavoriteBorder className={styles.icon} />
-            </button> */}
           </div>
           <div className={styles.bottum_info}>
             {/* <div className={styles.item_price}>${price}</div> */}

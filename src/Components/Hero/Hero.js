@@ -95,8 +95,7 @@ const Hero = ({ handleCart, cartItemsArr }) => {
                       image={item.image}
                       reviewCount={item.reviewCount}
                       rating={item.rating}
-                      cartItemsArr={cartItemsArr}
-                      handleCart={handleCart}
+                      price={item.price}
                     />
                   </li>
                 ))
@@ -104,6 +103,15 @@ const Hero = ({ handleCart, cartItemsArr }) => {
                 <FontAwesomeIcon icon={faSpinner} spin />
               )}
             </ul>
+          </div>
+          <div className={styles.brand_wrpper}>
+            <div className={styles.brand_title}>
+              <h4>
+                Global <span>5K+</span>
+                Happy Sponsors With us
+              </h4>
+              {/* <span className={styles.horizontal_line}>-</span> */}
+            </div>
           </div>
         </div>
       </div>

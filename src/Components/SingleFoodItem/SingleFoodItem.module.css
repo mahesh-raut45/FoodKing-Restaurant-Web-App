@@ -42,6 +42,7 @@
     font-weight: 700;
     color: var(--text-color);
     text-transform: uppercase;
+    color: var(--orange);
 }
 
 .foodDescription {
