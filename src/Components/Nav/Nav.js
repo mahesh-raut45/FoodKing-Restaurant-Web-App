@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Nav.module.css";
 import navlogo from "../../photos/navlogo.jpg";
-import { Link } from "react-router-dom";
-import { auth, db } from "../../firabaseInit";
-import { doc, getDoc } from "firebase/firestore";
-import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 import man from "../../photos/man.png";
+import { fetchUserDetails } from "../../Feature/auth/AuthService";
 
 const Nav = (props) => {
   const [scrolled, setScrolled] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const navite = useNavigate();
 
   // Setup an event listener for scrolling when the component mounts
   useEffect(() => {
@@ -23,8 +22,8 @@ const Nav = (props) => {
     // Add event listener
     window.addEventListener("scroll", handleScroll);
 
-    // Fetch user data
-    fetchUserData();
+    // // Fetch user data
+    // fetchUserData();
 
     // Clean up event listener when component unmounts
     return () => {
@@ -32,38 +31,48 @@ const Nav = (props) => {
     };
   }, [scrolled]);
 
-  const fetchUserData = async () => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const user = await fetchUserDetails();
+        setUserDetails(user);
         console.log("User: ", user);
-        try {
-          const docRef = doc(db, "Users", user.uid);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            setUserDetails(docSnap.data());
-            toast.success("User logged in successfully!", {
-              position: "top-right",
-            });
-          } else {
-            console.log("User is not logged in");
-          }
-        } catch (error) {
-          toast.error(`User is not logged in!, ${error.message} `, {
-            position: "top-right",
-          });
-        }
+      } catch (error) {
+        console.log("User is not logged in", error.message);
       }
-    });
-  };
+    };
+    getUserData();
+  }, []);
+
+  // const fetchUserData = async () => {
+  //   auth.onAuthStateChanged(async (user) => {
+  //     if (user) {
+  //       console.log("User: ", user);
+  //       try {
+  //         const docRef = doc(db, "Users", user.uid);
+  //         const docSnap = await getDoc(docRef);
+  //         if (docSnap.exists()) {
+  //           setUserDetails(docSnap.data());
+  //           toast.success("User logged in successfully!", {
+  //             position: "top-right",
+  //           });
+  //         } else {
+  //           console.log("User is not logged in");
+  //         }
+  //       } catch (error) {
+  //         toast.error(`User is not logged in!, ${error.message} `, {
+  //           position: "top-right",
+  //         });
+  //       }
+  //     }
+  //   });
+  // };
 
   const handleLogout = async () => {
-    try {
-      await auth.signOut();
-      window.location.href = "/";
-      console.log("User logged out!");
-    } catch (error) {
-      console.log("User does not logout,", error.message);
-    }
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/";
+    // navite("/");
   };
 
   return (
@@ -88,28 +97,28 @@ const Nav = (props) => {
             </ul>
           </div>
           <div className={styles.nav_top_social_icon}>
-            <a href="#">
+            <a>
               <img
                 className={styles.small_icon}
                 src="https://cdn-icons-png.flaticon.com/128/2175/2175193.png"
                 alt="social"
               />
             </a>
-            <a href="#">
+            <a>
               <img
                 className={styles.small_icon}
                 src="https://cdn-icons-png.flaticon.com/128/2168/2168336.png"
                 alt="social"
               />
             </a>
-            <a href="#">
+            <a>
               <img
                 className={styles.small_icon}
                 src="https://cdn-icons-png.flaticon.com/128/1384/1384015.png"
                 alt="social"
               />
             </a>
-            <a href="#">
+            <a>
               <img
                 className={styles.small_icon}
                 src="https://cdn-icons-png.flaticon.com/128/49/49440.png"
@@ -146,7 +155,7 @@ const Nav = (props) => {
               <>
                 <div className={styles.logged_user}>
                   <img src={man} alt="user" />
-                  <p>{userDetails.fName}</p>
+                  <p>{userDetails.userName}</p>
                   <ul className={styles.user_actions}>
                     <li>
                       <button onClick={handleLogout}>Sign Out</button>

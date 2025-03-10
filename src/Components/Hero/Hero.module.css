@@ -81,15 +81,18 @@ span {
     display: none;
 }
 
+.brand_title {
+    position: relative;
+}
 
 .brand_wrpper .brand_title:before {
     position: absolute;
-    top: 12px;
+    top: 9px;
     right: 0;
     content: "";
-    background-color: var(--border);
+    background-color: var(--rating);
     width: 991px;
-    height: 1px;
+    height: 2px;
 }
 
 /* mobile view */

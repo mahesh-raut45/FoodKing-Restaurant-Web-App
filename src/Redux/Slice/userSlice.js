@@ -1,89 +1,114 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { auth, db } from "../../firabaseInit";
-import { doc, setDoc } from "firebase/firestore";
+import { login, register } from "../../Feature/auth/AuthService";
+
+const initialState = {
+  user: null,
+  isAuthenticated: false,
+  isLoading: false,
+  isError: false,
+  isSuccess: false,
+  message: "",
+};
 
 // AsynThuck for register user
 export const registerUser = createAsyncThunk(
-  "user/register",
-  async (userData, { rejectWithValue }) => {
+  "auth/register",
+  async (userData, thunkAPI) => {
     try {
-      await createUserWithEmailAndPassword(
-        auth,
-        userData.email,
-        userData.password
-      );
-      const user = auth.currentUser;
-
-      await setDoc(doc(db, "Users", user.uid), {
-        email: user.email,
-        fName: userData.fName,
-        lName: userData.lName,
-        password: userData.password,
-      });
-
-      return {
-        uid: user.uid,
-        email: user.email,
-        fName: userData.fName,
-        lName: userData.lName,
-        password: userData.password,
-      };
+      return await register(userData);
     } catch (error) {
-      return rejectWithValue(error.message);
+      console.error("Error in registration:", error);
+
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
 // Async thunk for user login
 export const loginUser = createAsyncThunk(
-  "user/login",
-  async ({ logInEmail, loginPassword }, { rejectWithValue }) => {
+  "auth/login",
+  async (userData, thunkAPI) => {
     try {
-      const userCredentials = await signInWithEmailAndPassword(
-        auth,
-        logInEmail,
-        loginPassword
-      );
-      return userCredentials.user; // return user data on success.
+      return await login(userData);
     } catch (error) {
-      return rejectWithValue(error.message);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
+// Logout user
+export const logout = createAsyncThunk("auth/logout", async () => {
+  logout();
+});
+
 // slice
 const userSlice = createSlice({
-  name: "user",
-  initialState: { user: null, loading: false, error: null },
+  name: "auth",
+  initialState,
   reducers: {
-    // logout
-    logout: (state) => {
-      state.user = null;
+    reset: (state) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.message = "";
     },
   },
   extraReducers: (builder) => {
-    // pending
     builder
+      // Register user
       .addCase(registerUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.isLoading = true;
       })
-      //success
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+        state.message = action.payload.message;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      })
+      // Login
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isAuthenticated = true;
         state.user = action.payload;
       })
-      //   rejected
-      .addCase(registerUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+      .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      })
+      // Logout
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null;
+        state.isAuthenticated = false;
       });
   },
 });
 
-export const { logout } = userSlice.actions;
+// export const { logout } = userSlice.actions;
+export const { reset } = userSlice.actions;
 export default userSlice.reducer;

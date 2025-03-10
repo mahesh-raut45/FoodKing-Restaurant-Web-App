@@ -9,38 +9,73 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, registerUser } from "../../Redux/Slice/userSlice";
+import { loginUser, registerUser, reset } from "../../Redux/Slice/userSlice";
 import { toast } from "react-toastify";
 import { auth } from "../../firabaseInit";
+import { login, register } from "../../Feature/auth/AuthService";
 
 const LoginPage = () => {
   const [isActive, setIsActive] = useState(false);
-  const navigate = useNavigate();
   const [loginUserData, setLoginUserData] = useState({
-    logInEmail: "",
-    loginPassword: "",
-  });
-
-  const [regUserData, setRegUserData] = useState({
-    fName: "",
-    lName: "",
-    email: "",
+    username: "",
     password: "",
   });
 
+  const [regUserData, setRegUserData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth || {}
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message, {
+        position: "top-right",
+      });
+    }
+
+    if (isSuccess) {
+      toast.success("Registration successful! Please login.", {
+        postion: "top-right",
+      });
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  const onRegValChange = (e) => {
+    setRegUserData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const onLoginValChange = (e) => {
+    setLoginUserData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   // if user is logged in then navigate to home page
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigate("/home");
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigate("/home");
+  //     }
+  //   });
+  // }, []);
 
   //   for switching between sign in and sign up
+
   const handleRegister = () => {
     setIsActive(true);
   };
@@ -48,11 +83,19 @@ const LoginPage = () => {
     setIsActive(false);
   };
 
-  //   on form submitting
+  // on form submitting
 
   const onLogin = (e) => {
     e.preventDefault();
-    dispatch(loginUser(loginUserData)).then((result) => {
+
+    const userData = {
+      userName: loginUserData.username,
+      password: loginUserData.password,
+    };
+
+    // dispatch(login(userData));
+
+    dispatch(loginUser(userData)).then((result) => {
       if (loginUser.fulfilled.match(result)) {
         toast.success("User Logged In successfully!", {
           position: "bottom-right",
@@ -65,29 +108,47 @@ const LoginPage = () => {
       }
     });
 
-    setLoginUserData({
-      logInEmail: "",
-      loginPassword: "",
-    });
+    // setLoginUserData({
+    //   logInEmail: "",
+    //   loginPassword: "",
+    // });
   };
 
   const onRegister = (e) => {
     e.preventDefault();
-    dispatch(registerUser(regUserData)).then((result) => {
-      if (registerUser.fulfilled.match(result)) {
-        toast.success("User registered successfully!", {
-          position: "bottom-right",
-        });
-        setIsActive(true);
-      } else {
-        toast.error(`Failed to register user! ${result.payload}`, {
-          position: "bottom-right",
-        });
-      }
-    });
 
-    setRegUserData({ fName: "", lName: "", email: "", password: "" });
+    if (regUserData.password !== regUserData.confirmPassword) {
+      toast.warning("Password and Confirm Password should be same!", {
+        position: "top-right",
+      });
+    } else {
+      const userData = {
+        userName: regUserData.username,
+        email: regUserData.email,
+        password: regUserData.password,
+      };
+
+      // dispatch(register(userData));
+      dispatch(registerUser(userData)).then((result) => {
+        if (registerUser.fulfilled.match(result)) {
+          toast.success("User registered successfully!", {
+            position: "bottom-right",
+          });
+          setIsActive(true);
+        } else {
+          toast.error(`Failed to register user! ${result.payload}`, {
+            position: "bottom-right",
+          });
+        }
+      });
+    }
+
+    // setRegUserData({ fName: "", lName: "", email: "", password: "" });
   };
+
+  // if (isLoading) {
+  //   return <div>Loading...</div>
+  // }
 
   return (
     <>
@@ -112,41 +173,37 @@ const LoginPage = () => {
             <span>or use your email for registration</span>
             <input
               type="text"
-              value={regUserData.fName}
-              onChange={(e) =>
-                setRegUserData({ ...regUserData, fName: e.target.value })
-              }
-              placeholder="First Name"
+              name="username"
+              value={regUserData.username}
+              onChange={onRegValChange}
+              placeholder="Username"
               required
             />
             <input
-              type="text"
-              value={regUserData.lName}
-              onChange={(e) =>
-                setRegUserData({ ...regUserData, lName: e.target.value })
-              }
-              placeholder="Last name"
-            />
-            <input
               type="email"
+              name="email"
               value={regUserData.email}
-              onChange={(e) =>
-                setRegUserData({ ...regUserData, email: e.target.value })
-              }
+              onChange={onRegValChange}
               placeholder="Email"
             />
             <input
               type="password"
+              name="password"
               value={regUserData.password}
-              onChange={(e) =>
-                setRegUserData({ ...regUserData, password: e.target.value })
-              }
+              onChange={onRegValChange}
               placeholder="Password"
             />
-            <button type="submit" disabled={loading}>
-              {loading ? "Signing Up..." : "Sign Up"}
+            <input
+              type="password"
+              name="confirmPassword"
+              value={regUserData.confirmPassword}
+              onChange={onRegValChange}
+              placeholder="Confirm Password"
+            />
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Signing Up..." : "Sign Up"}
             </button>
-            {error && <p style={{ color: "blue" }}>{error}</p>}
+            {isError && <p style={{ color: "blue" }}>{message}</p>}
           </form>
         </div>
 
@@ -169,50 +226,42 @@ const LoginPage = () => {
             </div>
             <span>or use your email and password</span>
             <input
-              type="email"
-              value={loginUserData.logInEmail}
-              onChange={(e) =>
-                setLoginUserData({
-                  ...loginUserData,
-                  logInEmail: e.target.value,
-                })
-              }
-              placeholder="Email"
+              type="text"
+              name="username"
+              value={loginUserData.username}
+              onChange={onLoginValChange}
+              placeholder="username"
               required
             />
             <input
               type="password"
-              value={loginUserData.loginPassword}
-              onChange={(e) =>
-                setLoginUserData({
-                  ...loginUserData,
-                  loginPassword: e.target.value,
-                })
-              }
+              name="password"
+              value={loginUserData.password}
+              onChange={onLoginValChange}
               placeholder="Password"
               required
             />
             <Link to="#" className={styles.forget_password}>
               Forget Your Password
             </Link>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <button type="submit" disabled={loading}>
-              {loading ? "Signing In..." : "Sign In"}
+            {isError && <p style={{ color: "red" }}>{message}</p>}
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Signing In..." : "Sign In"}
             </button>
           </form>
         </div>
         <div className={styles.toggle_container}>
           <div className={styles.toggle}>
             <div className={`${styles.toggle_panel} ${styles.toggle_left} `}>
-              <h1>Welcome Back!</h1>
-              <p>Enter your personal details</p>
+              <h1>Hello Friend!</h1>
+              <p>Create your new account</p>
               <button className={styles.hidden} onClick={handleSignIn}>
                 Sign In
               </button>
             </div>
             <div className={`${styles.toggle_panel} ${styles.toggle_right} `}>
-              <h1>Hello Friend!</h1>
-              <p>Register your personal details</p>
+              <h1>Welcome Back!</h1>
+              <p>Enter your personal details</p>
               <button className={styles.hidden} onClick={handleRegister}>
                 Sign Up
               </button>
