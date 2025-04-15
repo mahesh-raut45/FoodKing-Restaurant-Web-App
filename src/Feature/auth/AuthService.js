@@ -14,6 +14,7 @@ export const register = async (userData) => {
 export const login = async (userData) => {
   const response = await axios.post(API_URL + "login", userData);
 
+  console.log("Response: ", response);
   if (response.data) {
     localStorage.setItem("token", response.data.token);
     localStorage.setItem("user", JSON.stringify(response.data));
@@ -29,20 +30,6 @@ export const fetchUserDetails = async () => {
   if (!user) throw new Error("User is not logged in!");
 
   return user; // Return user data from localStorage
-
-  // const token = localStorage.getItem("token");
-
-  // if (!token) {
-  //   throw new Error("User is not logged in!");
-  // }
-
-  // const response = await axios.get(API_URL + "user", {
-  //   headers: {
-  //     Authorization: `Bearer ${token}`, // Sending token in headers
-  //   },
-  // });
-
-  // return response.data;
 };
 
 // Logout user

@@ -118,6 +118,22 @@
     background: #006400;
 }
 
+.removeFromCart {
+    background: #802700;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 15px;
+    padding: 15px;
+    font-size: 20px;
+}
+
+.removeFromCart:hover {
+    background: #b60202;
+}
+
 .review {
     color: var(--rating);
     font-weight: 600;

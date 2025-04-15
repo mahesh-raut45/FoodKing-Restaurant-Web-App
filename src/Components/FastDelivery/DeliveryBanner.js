@@ -43,6 +43,10 @@ class DeliveryBanner extends Component {
             </div>
           </div>
         </div>
+        <div className={styles.footer_section}>
+          <div className={styles.footer_container}></div>
+          <div className={styles.footer_bottom}></div>
+        </div>
       </>
     );
   }

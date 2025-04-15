@@ -13,6 +13,7 @@ import { LoginPage } from "./Components/Login/LoginPage";
 import { Page404 } from "./PageNotFound/Page404";
 import { SingleFoodItem } from "./Components/SingleFoodItem/SingleFoodItem";
 import { ThemeProvider } from "@material-tailwind/react";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   // constructor() {
@@ -96,12 +97,13 @@ const App = () => {
 
   return (
     <ThemeProvider>
+      <ToastContainer />
       <RouterProvider router={router} />
     </ThemeProvider>
     // <Router>
     //   <Nav cartCount={cartCount} />
 
-    //   <ToastContainer />
+    //
     //   <Routes>
     //     {/* <Register /> */}
     //     <Route path="/" element={<LoginPage />} />

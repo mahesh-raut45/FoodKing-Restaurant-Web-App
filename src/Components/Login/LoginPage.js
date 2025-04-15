@@ -11,8 +11,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, registerUser, reset } from "../../Redux/Slice/userSlice";
 import { toast } from "react-toastify";
-import { auth } from "../../firabaseInit";
-import { login, register } from "../../Feature/auth/AuthService";
 
 const LoginPage = () => {
   const [isActive, setIsActive] = useState(false);
@@ -36,11 +34,11 @@ const LoginPage = () => {
   );
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message, {
-        position: "top-right",
-      });
-    }
+    // if (isError) {
+    //   toast.error(message, {
+    //     position: "top-right",
+    //   });
+    // }
 
     if (isSuccess) {
       toast.success("Registration successful! Please login.", {
@@ -48,7 +46,7 @@ const LoginPage = () => {
       });
     }
 
-    dispatch(reset());
+    // dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onRegValChange = (e) => {
@@ -65,16 +63,7 @@ const LoginPage = () => {
     }));
   };
 
-  // if user is logged in then navigate to home page
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       navigate("/home");
-  //     }
-  //   });
-  // }, []);
-
-  //   for switching between sign in and sign up
+  // for switching between sign in and sign up
 
   const handleRegister = () => {
     setIsActive(true);
@@ -98,20 +87,20 @@ const LoginPage = () => {
     dispatch(loginUser(userData)).then((result) => {
       if (loginUser.fulfilled.match(result)) {
         toast.success("User Logged In successfully!", {
-          position: "bottom-right",
+          position: "top-right",
         });
         navigate("/home");
       } else {
         toast.error(`Failed to login user! ${result.payload}`, {
-          position: "bottom-right",
+          position: "top-right",
         });
       }
     });
 
-    // setLoginUserData({
-    //   logInEmail: "",
-    //   loginPassword: "",
-    // });
+    setLoginUserData({
+      logInEmail: "",
+      loginPassword: "",
+    });
   };
 
   const onRegister = (e) => {
@@ -142,13 +131,7 @@ const LoginPage = () => {
         }
       });
     }
-
-    // setRegUserData({ fName: "", lName: "", email: "", password: "" });
   };
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>
-  // }
 
   return (
     <>

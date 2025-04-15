@@ -100,3 +100,10 @@
         width: 180px;
     }
 }
+
+/* **** Footer Section */
+
+.footer_section {
+    position: relative;
+    background-color: var(--white);
+}

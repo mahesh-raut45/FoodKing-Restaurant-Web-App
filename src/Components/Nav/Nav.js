@@ -4,11 +4,13 @@ import navlogo from "../../photos/navlogo.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import man from "../../photos/man.png";
 import { fetchUserDetails } from "../../Feature/auth/AuthService";
+import { useSelector } from "react-redux";
 
 const Nav = (props) => {
   const [scrolled, setScrolled] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
-  const navite = useNavigate();
+  const navigate = useNavigate();
+  let cartItems = useSelector((state) => state.cart.cartItems);
 
   // Setup an event listener for scrolling when the component mounts
   useEffect(() => {
@@ -22,14 +24,13 @@ const Nav = (props) => {
     // Add event listener
     window.addEventListener("scroll", handleScroll);
 
-    // // Fetch user data
-    // fetchUserData();
+    cartItems = cartItems.length;
 
     // Clean up event listener when component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scrolled]);
+  }, [scrolled, cartItems]);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -37,11 +38,16 @@ const Nav = (props) => {
         const user = await fetchUserDetails();
         setUserDetails(user);
         console.log("User: ", user);
+        if (user != null) {
+          navigate("/home");
+        }
       } catch (error) {
-        console.log("User is not logged in", error.message);
+        console.log("Login status: ", error.message);
       }
     };
     getUserData();
+
+    // cartItems = cartItems.length;
   }, []);
 
   // const fetchUserData = async () => {
@@ -147,7 +153,7 @@ const Nav = (props) => {
                   alt="cart"
                   className={styles.nav_cart_logo}
                 />
-                <span className={styles.cart_counter}>{props.cartCount}</span>
+                <span className={styles.cart_counter}>{cartItems.length}</span>
               </Link>
             </div>
             <p className={styles.nav_contactus}>CONTACT US</p>

@@ -7,32 +7,41 @@ import {
   fetchProducts,
 } from "../../Redux/Slice/productSlice";
 import { Card } from "../FoodCard/Card/SmallCard";
-import { CardPlacehoderSkeleton } from "../Skeleton/CardSeleton";
-import Skeleton from "react-loading-skeleton";
+import {
+  addItemToCart,
+  addToCart,
+  removeFromCart,
+} from "../../Redux/Slice/cartSlice";
+import React from "react";
+import { fetchUserDetails } from "../../Feature/auth/AuthService";
 
 export const SingleFoodItem = () => {
   const [quantity, setQuantity] = useState(1);
   const [similarProducts, setSimilarProducts] = useState([]);
+  const [isInCart, setIsInCart] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  // console.log("Cart Items: ", cartItems);
 
   const increaseQuantity = () => setQuantity(quantity + 1);
+
   const decreaseQuantity = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
-
-  useEffect(() => {
-    // Scroll to top smoothly
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
-    dispatch(fetchProductById(id));
-    dispatch(fetchProducts());
-  }, [dispatch, id]);
-
   // taking from ProductSlice
   const { products, status, product } = useSelector((state) => state.products);
-  // console.log("All products: ",products);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await fetchUserDetails();
+      setUserDetails(user);
+    };
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     if (products.length > 0 && product) {
@@ -50,6 +59,31 @@ export const SingleFoodItem = () => {
       setSimilarProducts(similar);
     }
   }, [products, product, id]);
+
+  useEffect(() => {
+    // Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    dispatch(fetchProductById(id));
+    dispatch(fetchProducts());
+  }, [dispatch, id]);
+
+  // Add to cart functionality
+  const handleAddToCart = (prod, qty) => {
+    // dispatch(addToCart(prod, qty));
+    // console.log("Added to cart: ", prod);
+
+    // try using the uername
+    dispatch(addItemToCart(userDetails.id, prod.id));
+
+    setIsInCart(true);
+  };
+
+  // Remove from cart functionality
+  const handleRemoveFromCart = (prod, qty) => {
+    dispatch(removeFromCart(prod, qty));
+    setIsInCart(false);
+  };
 
   const goToFoodItem = (id) => {
     navigate(`/foodItem/${id}`);
@@ -134,7 +168,9 @@ export const SingleFoodItem = () => {
             <div className={styles.quantityContainer}>
               <button
                 className={styles.quantityButton}
-                onClick={decreaseQuantity}
+                onClick={() => {
+                  decreaseQuantity();
+                }}
               >
                 −
               </button>
@@ -146,14 +182,27 @@ export const SingleFoodItem = () => {
               />
               <button
                 className={styles.quantityButton}
-                onClick={increaseQuantity}
+                onClick={() => {
+                  increaseQuantity();
+                }}
               >
                 +
               </button>
             </div>
 
             {/* Add to Cart Button */}
-            <button className={styles.addToCartButton}>🛒 Add to Cart</button>
+            <button
+              className={
+                isInCart ? styles.removeFromCart : styles.addToCartButton
+              }
+              onClick={() => {
+                isInCart
+                  ? handleRemoveFromCart(product, quantity)
+                  : handleAddToCart(product, quantity);
+              }}
+            >
+              🛒 {isInCart ? "Remove From Cart" : "Add to Cart"}
+            </button>
             <p className={styles.ratings_review}>
               <span className={styles.rating}>{product.rating}</span>
               <span>⭐</span>
