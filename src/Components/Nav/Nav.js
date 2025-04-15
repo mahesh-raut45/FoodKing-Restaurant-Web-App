@@ -4,11 +4,13 @@ import navlogo from "../../photos/navlogo.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import man from "../../photos/man.png";
 import { fetchUserDetails } from "../../Feature/auth/AuthService";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../../Redux/Slice/cartSlice";
 
-const Nav = (props) => {
+const Nav = () => {
   const [scrolled, setScrolled] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   let cartItems = useSelector((state) => state.cart.cartItems);
 
@@ -24,14 +26,13 @@ const Nav = (props) => {
     // Add event listener
     window.addEventListener("scroll", handleScroll);
 
-    cartItems = cartItems.length;
-
     // Clean up event listener when component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [scrolled, cartItems]);
 
+  // fetching user details from backend
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -46,39 +47,17 @@ const Nav = (props) => {
       }
     };
     getUserData();
-
-    // cartItems = cartItems.length;
   }, []);
 
-  // const fetchUserData = async () => {
-  //   auth.onAuthStateChanged(async (user) => {
-  //     if (user) {
-  //       console.log("User: ", user);
-  //       try {
-  //         const docRef = doc(db, "Users", user.uid);
-  //         const docSnap = await getDoc(docRef);
-  //         if (docSnap.exists()) {
-  //           setUserDetails(docSnap.data());
-  //           toast.success("User logged in successfully!", {
-  //             position: "top-right",
-  //           });
-  //         } else {
-  //           console.log("User is not logged in");
-  //         }
-  //       } catch (error) {
-  //         toast.error(`User is not logged in!, ${error.message} `, {
-  //           position: "top-right",
-  //         });
-  //       }
-  //     }
-  //   });
-  // };
+  // fethcing cart items from backend
+  useEffect(() => {
+    dispatch(fetchCart(userDetails?.id));
+  }, [userDetails?.id]);
 
   const handleLogout = async () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     window.location.href = "/";
-    // navite("/");
   };
 
   return (
@@ -139,23 +118,27 @@ const Nav = (props) => {
       <div className={`${styles.nav} ${scrolled ? styles.nav_fixed : ""}`}>
         <div className={styles.nav_container}>
           <div className={styles.nav_left}>
-            <Link to={"/"}>
+            <Link to={"/home"}>
               <img className={styles.nav_logo} src={navlogo} alt="nav logo" />
             </Link>
             <h1 className={styles.nav_header}>FoodKing</h1>
           </div>
 
           <div className={styles.nav_right}>
-            <div className={styles.nav_cart}>
-              <Link to="/cart">
-                <img
-                  src="https://t3.ftcdn.net/jpg/00/73/10/64/240_F_73106428_Q91LNUigg4ZRIi1ItxIcgEzyW8C9yluE.jpg"
-                  alt="cart"
-                  className={styles.nav_cart_logo}
-                />
-                <span className={styles.cart_counter}>{cartItems.length}</span>
-              </Link>
-            </div>
+            {userDetails ? (
+              <div className={styles.nav_cart}>
+                <Link to="/cart">
+                  <img
+                    src="https://t3.ftcdn.net/jpg/00/73/10/64/240_F_73106428_Q91LNUigg4ZRIi1ItxIcgEzyW8C9yluE.jpg"
+                    alt="cart"
+                    className={styles.nav_cart_logo}
+                  />
+                  <span className={styles.cart_counter}>
+                    {cartItems.length}
+                  </span>
+                </Link>
+              </div>
+            ) : null}
             <p className={styles.nav_contactus}>CONTACT US</p>
             {userDetails ? (
               <>

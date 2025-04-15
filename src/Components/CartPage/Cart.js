@@ -1,12 +1,67 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Cart.module.css";
 import { ImCross } from "react-icons/im";
-import { Link } from "react-router-dom";
 import { Button } from "../Button/Button";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { fetchUserDetails } from "../../Feature/auth/AuthService";
+import { deleteCartItem } from "../../Redux/Slice/cartSlice";
 
 const Cart = () => {
+  let [shipping, setShipping] = useState(60);
+  let [finalTotal, setFinalTotal] = useState(0);
+  const [userDetails, setUserDetails] = useState(null);
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const totalAmount = useSelector((state) => state.cart.totalAmount);
+
+  // fetching user details
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const user = await fetchUserDetails();
+        setUserDetails(user);
+      } catch (error) {
+        console.log("Error in fetching user details: ", error);
+      }
+    };
+    getUserData();
+  }, []);
+
+  // calculating final total
+  useEffect(() => {
+    if (totalAmount > 1000) {
+      setShipping(0);
+    }
+    const total = totalAmount + shipping;
+    setFinalTotal(total);
+  }, []);
+
+  // remove item from cart
+  const removeItem = (userId, itemId) => {
+    dispatch(deleteCartItem(userId, itemId));
+  };
+
+  console.log("Cart items: ", cartItems);
+
+  const updateCart = () => {
+    if (totalAmount > 1000) {
+      setShipping(0);
+    } else {
+      setShipping(60);
+    }
+    // const total = totalAmount + shipping;
+
+    const total = cartItems.reduce((sum, item) => {
+      sum += item.foodItem.price * item.foodItem.quantity;
+      return sum;
+    }, 0);
+
+    setFinalTotal(total);
+    console.log("Total: ", total);
+  };
+
   // constructor(props) {
   //   super(props);
   //   this.state = {
@@ -19,7 +74,7 @@ const Cart = () => {
   //   };
   // }
 
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  // console.log(cartItems);
 
   // componentDidMount() {
   //   this.setState({
@@ -107,9 +162,7 @@ const Cart = () => {
   //   // console.log("inside cart ", cartItemsArr);
   return (
     <>
-      {/* <Link to="/home">
-        <h2 className={styles.homepage_link}>{"<"} Home Page</h2>
-      </Link> */}
+      <h2 className={styles.heading}>My Cart</h2>
       <div className={styles.container}>
         <div className={styles.main_cart}>
           <div className={styles.cart_items}>
@@ -125,44 +178,33 @@ const Cart = () => {
               </thead>
               <tbody>
                 {cartItems !== null
-                  ? cartItems.map((item) => (
-                      <tr key={item.id} className={styles.body_row}>
-                        {console.log("Single cart item", item)}
+                  ? cartItems.map((item, index) => (
+                      <tr key={index} className={styles.body_row}>
                         <td className={styles.cart_item_img_name}>
                           <img
                             className={styles.cart_item_img}
-                            src={item.image}
+                            src={item.foodItem.image}
                             alt="item"
                           />
-                          <p className={styles.cart_item_name}>{item.name}</p>
+                          <p className={styles.cart_item_name}>
+                            {item.foodItem.name}
+                          </p>
                         </td>
                         <td className={styles.text_center_width}>
-                          {item.price}
+                          {item.foodItem.price}
                         </td>
                         <td className={styles.text_center_width}>
-                          <input
-                            type="number"
-                            value={item.quantity}
-                            onChange={(e) => this.handleQty(e, item)}
-                            min={1}
-                          />
-                          {/* {console.log("qty :", this.state.qty)} */}
+                          {item.foodItem.quantity}
                         </td>
-                        {/* Subtotal */}
                         <td className={styles.text_center_width}>
                           {/* storing the subtotal for individiual cart items */}
-                          {/* {
-                            (this.state.cartSubtotalArr[item.id] =
-                              item.price * this.state.quantities[index])
-                          } */}
-                          {console.log(
-                            "cart subtotal: "
-                            // this.state.cartSubtotalArr
-                          )}
+                          {item.foodItem.price * item.foodItem.quantity}
                         </td>
                         <td
                           className={styles.text_center_width}
-                          // onClick={() => this.handleCart(item)}
+                          onClick={() =>
+                            removeItem(userDetails.id, item.foodItem.id)
+                          }
                         >
                           <ImCross />
                         </td>
@@ -172,33 +214,28 @@ const Cart = () => {
               </tbody>
             </table>
           </div>
-          <div
-            className={styles.update_cartbtn}
-            // onClick={() => this.handleUpdateCart()}
-          >
-            <Button text="Update Cart" />
+          <div onClick={() => updateCart()}>
+            <Button text={"Update Cart"} />
           </div>
         </div>
+
+        {/* Cart Total */}
         <div className={styles.cart_total}>
           <h4>Cart Total</h4>
           <ul className={styles.list}>
             <li>
               <span>Subtotal</span>
-              {/* <span>{this.state.checkoutSubtotal}</span> */}
+              <span>{finalTotal}</span>
             </li>
             <hr />
             <li>
               <span>Shipping</span>
-              {/* <span>{this.state.shipping}</span> */}
+              <span>{shipping}</span>
             </li>
             <hr />
             <li>
               <span>Total</span>
-              <span>
-                {/* {this.state.checkoutSubtotal !== 0
-                  ? this.state.finalSubtotal
-                  : 0} */}
-              </span>
+              <span>{finalTotal}</span>
             </li>
           </ul>
           <div className={styles.checkout_btn}>

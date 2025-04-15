@@ -1,16 +1,14 @@
-.homepage_link {
-    display: inline-block;
-    border: 1px solid;
-    /* justify-content: flex-start; */
-    padding: 7px;
-    background-color: #ff5722;
-    color: white;
-    border-radius: 10px
+.heading {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'ADLaM Display';
+    color: var(--secondary);
 }
 
 .container {
     /* border: 2px solid black; */
-    width: 80%;
+    width: 70%;
     height: 80vw;
     margin: 0 auto;
 }
@@ -18,7 +16,7 @@
 .main_cart {
     /* border: 1px solid black; */
     padding: 30px;
-    background: whitesmoke;
+    background: var(--bg);
     box-shadow: 11px 14px 34px gray;
     border-radius: 10px;
     display: flex;
@@ -29,11 +27,17 @@
 .cart_items {
     display: flex;
     gap: 50px;
+    max-height: 400px;
+    overflow: auto;
 }
 
 .cart_table {
     width: 100%;
     border-collapse: collapse;
+}
+
+.header_row {
+    color: var(--secondary);
 }
 
 .header_row th,

@@ -38,10 +38,12 @@ export const SingleFoodItem = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const user = await fetchUserDetails();
+      console.log("Logged user: ", user);
       setUserDetails(user);
     };
     fetchUser();
   }, []);
+  // console.log("Logged user details: ", userDetails);
 
   useEffect(() => {
     if (products.length > 0 && product) {
@@ -74,7 +76,7 @@ export const SingleFoodItem = () => {
     // console.log("Added to cart: ", prod);
 
     // try using the uername
-    dispatch(addItemToCart(userDetails.id, prod.id));
+    dispatch(addItemToCart(userDetails.id, prod.id, qty));
 
     setIsInCart(true);
   };
