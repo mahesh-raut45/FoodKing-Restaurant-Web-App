@@ -1,7 +1,7 @@
 .button {
     height: 66px;
     width: 200px;
-    background: var(--green);
+    background: var(--bg3);
     color: var(--white);
     display: flex;
     justify-content: space-evenly;
@@ -17,7 +17,7 @@
 
 .button:hover {
     background-color: var(--orange);
-    scale: 1.1;
+    /* scale: 1.1; */
 }
 
 .white_bg {

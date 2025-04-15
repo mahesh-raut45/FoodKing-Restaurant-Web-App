@@ -201,12 +201,12 @@ const Cart = () => {
                           {item.foodItem.price * item.foodItem.quantity}
                         </td>
                         <td
-                          className={styles.text_center_width}
+                          className={`${styles.text_center_width} `}
                           onClick={() =>
                             removeItem(userDetails.id, item.foodItem.id)
                           }
                         >
-                          <ImCross />
+                          <ImCross className={styles.remove_btn} />
                         </td>
                       </tr>
                     ))

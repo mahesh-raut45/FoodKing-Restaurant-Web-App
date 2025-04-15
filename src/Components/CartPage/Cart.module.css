@@ -16,7 +16,7 @@
 .main_cart {
     /* border: 1px solid black; */
     padding: 30px;
-    background: var(--bg);
+    background: var(--body);
     box-shadow: 11px 14px 34px gray;
     border-radius: 10px;
     display: flex;
@@ -46,6 +46,7 @@
     /* Adds vertical space within each cell */
     border-bottom: 1px solid #ccc;
     /* Adds horizontal line */
+    font-size: 17px;
 }
 
 tbody input {
@@ -67,16 +68,19 @@ tbody input {
     width: 570px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 35px;
 }
 
 .cart_item_img {
-    /* border: 1px solid black; */
-    width: 100px;
+    width: 120px;
+    border-radius: 12px;
 }
 
 .cart_item_name {
-    color: gray;
+    color: var(--secondary);
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .text_center_width {
@@ -84,15 +88,28 @@ tbody input {
     text-align: center;
 }
 
+.remove_btn {
+    cursor: pointer;
+    color: #ad2900;
+    transition: all 0.3s ease-in-out;
+}
+
+.remove_btn:hover {
+    scale: 1.1;
+    color: var(--secondary);
+    rotate: 90deg;
+}
+
 /* Cart total */
 .cart_total {
-    border: 1px solid black;
     width: 560px;
-    height: 415px;
+    height: 435px;
     position: absolute;
-    left: 800px;
-    background: #f5f5f5;
-    margin-top: 30px;
+    left: 737px;
+    background: var(--white);
+    margin-top: 48px;
+    border-radius: 12px;
+    box-shadow: 11px 14px 34px gray;
 }
 
 .cart_total h4 {

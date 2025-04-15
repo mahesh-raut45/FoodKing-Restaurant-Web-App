@@ -7,11 +7,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../Redux/Slice/productSlice";
 import { useNavigate } from "react-router-dom";
-import { CardPlacehoderSkeleton } from "../Skeleton/CardSeleton";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Hero = ({ handleCart, cartItemsArr }) => {
+const Hero = () => {
   const scrollContainerRef = useRef();
   const isScrollBlocked = useRef(false);
   const dispatch = useDispatch();

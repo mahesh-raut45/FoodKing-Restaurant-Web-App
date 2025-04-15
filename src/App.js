@@ -75,17 +75,7 @@ const App = () => {
           ),
         },
         { path: "foodItem/:id", element: <SingleFoodItem /> },
-        {
-          path: "cart",
-          element: (
-            <Cart
-            // cartItemsArr={cartItems}
-            // cartCount={cartCount}
-            // foodData={foodData}
-            // handleCart={this.handleCart}
-            />
-          ),
-        },
+        { path: "cart", element: <Cart /> },
         { path: "reservations", element: <Reservation /> },
       ],
     },
