@@ -32,8 +32,14 @@ const Nav = () => {
     };
   }, [scrolled, cartItems]);
 
-  // fetching user details from backend
+  // fetching user details from backend only if the token is saved
   useEffect(() => {
+    // get the token
+    // const token = localStorage.getItem("token");
+
+    // //if token is not saved, then, it'll return from here
+    // if (!token) return;
+
     const getUserData = async () => {
       try {
         const user = await fetchUserDetails();
@@ -46,13 +52,14 @@ const Nav = () => {
         console.log("Login status: ", error.message);
       }
     };
+
     getUserData();
-  }, []);
+  }, [navigate]);
 
   // fethcing cart items from backend
   useEffect(() => {
     dispatch(fetchCart(userDetails?.id));
-  }, [userDetails?.id]);
+  }, [userDetails?.id, dispatch]);
 
   const handleLogout = async () => {
     localStorage.removeItem("token");
@@ -82,28 +89,28 @@ const Nav = () => {
             </ul>
           </div>
           <div className={styles.nav_top_social_icon}>
-            <a>
+            <a href="#">
               <img
                 className={styles.small_icon}
                 src="https://cdn-icons-png.flaticon.com/128/2175/2175193.png"
                 alt="social"
               />
             </a>
-            <a>
+            <a href="#">
               <img
                 className={styles.small_icon}
                 src="https://cdn-icons-png.flaticon.com/128/2168/2168336.png"
                 alt="social"
               />
             </a>
-            <a>
+            <a href="#">
               <img
                 className={styles.small_icon}
                 src="https://cdn-icons-png.flaticon.com/128/1384/1384015.png"
                 alt="social"
               />
             </a>
-            <a>
+            <a href="#">
               <img
                 className={styles.small_icon}
                 src="https://cdn-icons-png.flaticon.com/128/49/49440.png"
@@ -127,7 +134,7 @@ const Nav = () => {
           <div className={styles.nav_right}>
             {userDetails ? (
               <div className={styles.nav_cart}>
-                <Link to="/cart">
+                <Link to={`/cart/user/${userDetails.id}`}>
                   <img
                     src="https://t3.ftcdn.net/jpg/00/73/10/64/240_F_73106428_Q91LNUigg4ZRIi1ItxIcgEzyW8C9yluE.jpg"
                     alt="cart"

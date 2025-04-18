@@ -3,6 +3,7 @@ import styles from "./Header.module.css";
 import friedChicken from "../../photos/chiken.png";
 import { Button } from "../Button/Button";
 import { TbTruckDelivery } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 class Header extends Component {
   render() {
@@ -12,7 +13,9 @@ class Header extends Component {
           <div className={styles.Header_left}>
             <span>crispy, every bite taste</span>
             <h1 className={styles.fade_in}>Delicious FriedChicken</h1>
-            <Button icon={<TbTruckDelivery />} text="Order Now" />
+            <Link to={"/food-menu"}>
+              <Button icon={<TbTruckDelivery />} text="Order Now" />
+            </Link>
           </div>
           <div className={styles.Header_right}>
             <img

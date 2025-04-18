@@ -7,13 +7,11 @@ import {
   fetchProducts,
 } from "../../Redux/Slice/productSlice";
 import { Card } from "../FoodCard/Card/SmallCard";
-import {
-  addItemToCart,
-  addToCart,
-  removeFromCart,
-} from "../../Redux/Slice/cartSlice";
+import { addItemToCart, removeFromCart } from "../../Redux/Slice/cartSlice";
 import React from "react";
 import { fetchUserDetails } from "../../Feature/auth/AuthService";
+import { toast } from "react-toastify";
+import HeaderComponent from "../HeaderComponent/HeaderComponent";
 
 export const SingleFoodItem = () => {
   const [quantity, setQuantity] = useState(1);
@@ -23,7 +21,7 @@ export const SingleFoodItem = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  // const cartItems = useSelector((state) => state.cart.cartItems);
 
   // console.log("Cart Items: ", cartItems);
 
@@ -38,8 +36,15 @@ export const SingleFoodItem = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const user = await fetchUserDetails();
-      console.log("Logged user: ", user);
-      setUserDetails(user);
+      if (user) {
+        setUserDetails(user);
+      } else {
+        toast.info("Please login to continue!", {
+          position: "top-right",
+        });
+        navigate("/");
+      }
+      // console.log("Logged user: ", user);
     };
     fetchUser();
   }, []);
@@ -75,7 +80,6 @@ export const SingleFoodItem = () => {
     // dispatch(addToCart(prod, qty));
     // console.log("Added to cart: ", prod);
 
-    // try using the uername
     dispatch(addItemToCart(userDetails.id, prod.id, qty));
 
     setIsInCart(true);
@@ -93,6 +97,7 @@ export const SingleFoodItem = () => {
 
   return (
     <>
+      <HeaderComponent title="Product Details" />
       {status === "loading" || !product ? (
         <div className="p-6 rounded-lg shadow-lg bg-gray-100 animate-pulse max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row gap-6">
@@ -202,6 +207,7 @@ export const SingleFoodItem = () => {
                   ? handleRemoveFromCart(product, quantity)
                   : handleAddToCart(product, quantity);
               }}
+              disabled={!userDetails}
             >
               🛒 {isInCart ? "Remove From Cart" : "Add to Cart"}
             </button>

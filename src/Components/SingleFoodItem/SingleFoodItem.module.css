@@ -118,6 +118,11 @@
     background: #006400;
 }
 
+.disabledBtn {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .removeFromCart {
     background: #802700;
     color: white;

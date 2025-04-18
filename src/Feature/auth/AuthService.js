@@ -27,7 +27,11 @@ export const login = async (userData) => {
 export const fetchUserDetails = async () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
-  if (!user) throw new Error("User is not logged in!");
+  // if (!user) throw new Error("User is not logged in!");
+  if (!user) {
+    console.warn("No user data found in localStorage");
+    return null;
+  }
 
   return user; // Return user data from localStorage
 };

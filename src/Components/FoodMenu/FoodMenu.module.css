@@ -1,0 +1,45 @@
+.container {
+    border: 1px solid black;
+    height: 80vw;
+}
+
+.wrapper {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+    height: 100%;
+    max-height: 90%;
+}
+
+.filter_bar {
+    border: 1px solid black;
+    width: 30%;
+    margin: 10px;
+    max-height: 80%;
+    height: 80%;
+}
+
+.food_menu {
+    border: 1px solid black;
+    width: 65%;
+    margin: 10px 0px;
+}
+
+.search_bar {
+    margin: 0 5px;
+    border: 1px solid black;
+    height: 50px;
+}
+
+.item_list {
+    height: 80%;
+    border: 1px solid black;
+    padding: 0;
+}
+
+.bottom_navigation {
+    border: 1px solid black;
+    height: 40px;
+    margin-top: 30px;
+}

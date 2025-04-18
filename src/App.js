@@ -14,6 +14,7 @@ import { Page404 } from "./PageNotFound/Page404";
 import { SingleFoodItem } from "./Components/SingleFoodItem/SingleFoodItem";
 import { ThemeProvider } from "@material-tailwind/react";
 import { ToastContainer } from "react-toastify";
+import FoodMenu from "./Components/FoodMenu/FoodMenu";
 
 const App = () => {
   // constructor() {
@@ -75,7 +76,8 @@ const App = () => {
           ),
         },
         { path: "foodItem/:id", element: <SingleFoodItem /> },
-        { path: "cart", element: <Cart /> },
+        { path: "cart/user/:id", element: <Cart /> },
+        { path: "food-menu", element: <FoodMenu /> },
         { path: "reservations", element: <Reservation /> },
       ],
     },

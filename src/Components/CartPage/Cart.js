@@ -6,12 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { fetchUserDetails } from "../../Feature/auth/AuthService";
 import { deleteCartItem } from "../../Redux/Slice/cartSlice";
+import { MdModeEdit } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import HeaderComponent from "../HeaderComponent/HeaderComponent";
 
 const Cart = () => {
-  let [shipping, setShipping] = useState(60);
+  let [shipping, setShipping] = useState(100);
   let [finalTotal, setFinalTotal] = useState(0);
   const [userDetails, setUserDetails] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const cartItems = useSelector((state) => state.cart.cartItems);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
@@ -30,31 +34,33 @@ const Cart = () => {
   }, []);
 
   // calculating final total
-  useEffect(() => {
-    if (totalAmount > 1000) {
-      setShipping(0);
-    }
-    const total = totalAmount + shipping;
-    setFinalTotal(total);
-  }, []);
+  // useEffect(() => {
+  //   if (totalAmount > 1000) {
+  //     setShipping(0);
+  //   }
+  //   const total = totalAmount + shipping;
+  //   setFinalTotal(total);
+  // }, []);
 
   // remove item from cart
+
   const removeItem = (userId, itemId) => {
     dispatch(deleteCartItem(userId, itemId));
   };
 
   console.log("Cart items: ", cartItems);
 
+  // updating cart total on button click
   const updateCart = () => {
     if (totalAmount > 1000) {
       setShipping(0);
     } else {
-      setShipping(60);
+      setShipping(100);
     }
     // const total = totalAmount + shipping;
 
     const total = cartItems.reduce((sum, item) => {
-      sum += item.foodItem.price * item.foodItem.quantity;
+      sum += item.foodItem.price * item.quantity;
       return sum;
     }, 0);
 
@@ -62,107 +68,16 @@ const Cart = () => {
     console.log("Total: ", total);
   };
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     quantities: [],
-  //     cartSubtotalArr: [], // store total price of cart items
-  //     checkoutSubtotal: 0,
-  //     prevheckoutSubtotal: 0,
-  //     shipping: 60,
-  //     finalSubtotal: 0,
-  //   };
-  // }
+  // edit botton
+  const editItem = (itemId) => {
+    console.log("item id: ", itemId);
+    navigate(`/foodItem/${itemId}`);
+  };
 
-  // console.log(cartItems);
-
-  // componentDidMount() {
-  //   this.setState({
-  //     quantities: this.props.cartItemsArr.map(() => 1), // each item start with qty 1
-  //     cartSubtotalArr: this.props.cartItemsArr.map(() => 0),
-  //   });
-  // }
-
-  // handleQty = (e, item) => {
-  //   const newQty = parseInt(e.target.value);
-  //   if (newQty >= 1) {
-  //     const { cartItemsArr } = this.props;
-  //     const itemIdx = cartItemsArr.indexOf(item);
-  //     // Create a copy of the quantities array with updated quantity for specific item.
-  //     const updatedQuantities = [...this.state.quantities];
-  //     updatedQuantities[itemIdx] = newQty;
-  //     console.log("quantities arr: ", updatedQuantities);
-
-  //     this.setState({
-  //       quantities: updatedQuantities,
-  //     });
-  //   }
-  // };
-
-  // handleCart = (foodItem) => {
-  //   const { cartItemsArr } = this.props;
-  //   this.props.handleCart(foodItem);
-  //   cartItemsArr.filter((foodItem, index) => foodItem.id !== index);
-  //   this.setState({ cartItemsArr });
-  // };
-
-  // handleUpdateCart = () => {
-  //   let {
-  //     cartSubtotalArr,
-  //     checkoutSubtotal,
-  //     prevheckoutSubtotal,
-  //     finalSubtotal,
-  //     shipping,
-  //     quantities,
-  //   } = this.state;
-  //   const { cartItemsArr } = this.props;
-
-  //   // Calculate individual item subtotals and update cartSubtotalArr
-  //   cartSubtotalArr = cartItemsArr.map((item, index) => {
-  //     return item.price * quantities[index];
-  //   });
-
-  //   // Calculate the checkout subtotal by adding all subtotals
-  //   checkoutSubtotal = cartSubtotalArr.reduce((total, curr) => total + curr, 0);
-  //   console.log("Checkout Sub Total: ", checkoutSubtotal);
-
-  //   // cartSubtotalArr = cartItemsArr.map((item) => ())
-  //   if (prevheckoutSubtotal !== checkoutSubtotal) {
-  //     finalSubtotal = checkoutSubtotal + shipping;
-  //   }
-
-  //   this.setState({
-  //     cartSubtotalArr,
-  //     checkoutSubtotal,
-  //     finalSubtotal,
-  //     prevheckoutSubtotal: checkoutSubtotal,
-  //   });
-  // };
-
-  // //  Handle Checkout
-  // handleCheckout = () => {
-  //   const { finalSubtotal } = this.state;
-  //   if (finalSubtotal > 0) {
-  //     toast.success(
-  //       `Your order Placed Successfully!
-  //        Total Amount: $ ${finalSubtotal}`,
-  //       {
-  //         position: "bottom-right",
-  //       }
-  //     );
-  //   } else {
-  //     toast.warn("Card is Empty!", {
-  //       position: "bottom-right",
-  //     });
-  //   }
-  // };
-
-  // render() {
-  //   const { cartItemsArr } = this.props;
-  //   // console.log("inside cart ", cartItemsArr);
   return (
     <>
-      <h2 className={styles.heading}>My Cart</h2>
+      <HeaderComponent title="Shop Cart" />
+      {/* <h2 className={styles.heading}>My Cart</h2> */}
       <div className={styles.container}>
         <div className={styles.main_cart}>
           <div className={styles.cart_items}>
@@ -190,15 +105,19 @@ const Cart = () => {
                             {item.foodItem.name}
                           </p>
                         </td>
-                        <td className={styles.text_center_width}>
-                          {item.foodItem.price}
+                        <td
+                          className={`${styles.text_center_width} ${styles.item_price}`}
+                        >
+                          {"₹" + item.foodItem.price}
                         </td>
                         <td className={styles.text_center_width}>
-                          {item.foodItem.quantity}
+                          {item.quantity}
                         </td>
-                        <td className={styles.text_center_width}>
+                        <td
+                          className={`${styles.text_center_width} ${styles.item_price}`}
+                        >
                           {/* storing the subtotal for individiual cart items */}
-                          {item.foodItem.price * item.foodItem.quantity}
+                          {"₹" + item.foodItem.price * item.quantity}
                         </td>
                         <td
                           className={`${styles.text_center_width} `}
@@ -207,6 +126,12 @@ const Cart = () => {
                           }
                         >
                           <ImCross className={styles.remove_btn} />
+                        </td>
+                        <td
+                          className={styles.edit_btn_container}
+                          onClick={() => editItem(item.foodItem.id)}
+                        >
+                          <MdModeEdit className={styles.edit_btn} />
                         </td>
                       </tr>
                     ))
@@ -225,21 +150,22 @@ const Cart = () => {
           <ul className={styles.list}>
             <li>
               <span>Subtotal</span>
-              <span>{finalTotal}</span>
+              <span>{"₹" + finalTotal}</span>
             </li>
             <hr />
             <li>
               <span>Shipping</span>
-              <span>{shipping}</span>
+              <span>{"₹" + shipping}</span>
             </li>
             <hr />
-            <li>
+            <li className={styles.item_price}>
               <span>Total</span>
-              <span>{finalTotal}</span>
+              <span>₹ {finalTotal + shipping}</span>
             </li>
           </ul>
           <div className={styles.checkout_btn}>
-            <Button text="Checkout" />
+            {/* <Button text="Checkout" /> */}
+            <button>Checkout</button>
           </div>
         </div>
       </div>

@@ -9,8 +9,9 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, registerUser, reset } from "../../Redux/Slice/userSlice";
+import { loginUser, registerUser } from "../../Redux/Slice/userSlice";
 import { toast } from "react-toastify";
+import { fetchUserDetails } from "../../Feature/auth/AuthService";
 
 const LoginPage = () => {
   const [isActive, setIsActive] = useState(false);
@@ -89,6 +90,10 @@ const LoginPage = () => {
         toast.success("User Logged In successfully!", {
           position: "top-right",
         });
+
+        // Fetch user details after setting token
+        dispatch(fetchUserDetails);
+
         navigate("/home");
       } else {
         toast.error(`Failed to login user! ${result.payload}`, {

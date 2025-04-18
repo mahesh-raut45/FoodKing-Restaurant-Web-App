@@ -136,7 +136,7 @@ hr {
     /* margin: 0 112px; */
     padding: 0 70px;
     align-items: center;
-    background-color: var(--bg);
+    background-color: #f1e1dc;
 }
 
 .nav_left,
