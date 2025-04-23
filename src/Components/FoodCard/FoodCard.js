@@ -7,7 +7,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 class FoodCard extends Component {
   render() {
     // console.log("Food card Probs: ",   this.props.foodData);
-    const { foodData, handleCart, name, rating, reviewCount } = this.props;
+    const { foodData, name, rating, reviewCount } = this.props;
 
     // console.log(rating);
 

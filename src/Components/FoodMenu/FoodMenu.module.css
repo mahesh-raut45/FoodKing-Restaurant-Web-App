@@ -1,10 +1,10 @@
 .container {
-    border: 1px solid black;
-    height: 80vw;
+    /* border: 1px solid black; */
+    /* height: 100vh; */
 }
 
 .wrapper {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     justify-content: space-between;
     margin: 30px;
@@ -13,7 +13,7 @@
 }
 
 .filter_bar {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 30%;
     margin: 10px;
     max-height: 80%;
@@ -21,21 +21,67 @@
 }
 
 .food_menu {
-    border: 1px solid black;
-    width: 65%;
-    margin: 10px 0px;
+    /* border: 1px solid black; */
+    width: 95%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .search_bar {
     margin: 0 5px;
-    border: 1px solid black;
-    height: 50px;
+    border: 1px solid var(--bg3);
+    height: 70px;
+    width: 90%;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+}
+
+.search_bar div {
+    /* border: 1px solid var(--bg3);
+    padding: 5px 18px;
+    border-radius: 15px;
+    background: var(--body); */
+}
+
+.search_bar button {
+    padding: 9px 30px;
+    border: 1px solid var(--bg3);
+    border-radius: 15px;
+    /* color: black; */
+    background: var(--body);
+    font-weight: 600;
+    color: #c83304;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+}
+
+.search_bar button:hover {
+    scale: 1.1;
+    background-color: var(--rating);
+    border: none;
+    color: white;
+}
+
+.search_bar button:focus {
+    scale: 1.1;
+    background-color: var(--rating);
+    border: none;
+    color: white;
 }
 
 .item_list {
     height: 80%;
-    border: 1px solid black;
-    padding: 0;
+    /* border: 1px solid black; */
+    padding: 18px;
+    display: flex;
+    gap: 70px 58px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .bottom_navigation {
