@@ -146,7 +146,7 @@ const Nav = () => {
                 </Link>
               </div>
             ) : null}
-            <p className={styles.nav_contactus}>CONTACT US</p>
+            {/* <p className={styles.nav_contactus}>CONTACT US</p> */}
             {userDetails ? (
               <>
                 <div className={styles.logged_user}>

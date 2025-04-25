@@ -144,6 +144,8 @@ hr {
     display: flex;
     align-items: center;
     gap: 20px;
+    width: 200px;
+    justify-content: space-around;
 }
 
 .nav_logo {

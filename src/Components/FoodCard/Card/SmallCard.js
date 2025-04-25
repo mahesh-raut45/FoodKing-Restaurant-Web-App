@@ -11,7 +11,7 @@ const Card = ({ product }) => {
         <div className="content">
           <img src={product.image} alt={product.name} />
           <p>{product.name}</p>
-          {/* <p> {product.rating}</p> */}
+          <p className="price"> $ {product.price}</p>
         </div>
         <div className="blob" />
       </div>
@@ -28,13 +28,19 @@ const StyledWrapper = styled.div`
     align-items: center;
     padding: 0px 24px;
     top: 20px;
-    gap: 25px;
+    // gap: 25px;
   }
   p {
     font-size: 18px;
     font-weight: 700;
     color: var(--green);
+    text-align: center;
+    margin-bottom: 0;
   }
+  .price {
+    color: var(--orange);
+  }
+
   .content img {
     width: 150px;
     border-radius: 10px;
