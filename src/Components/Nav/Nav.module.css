@@ -131,6 +131,7 @@ hr {
 }
 
 .nav_container {
+    position: relative;
     display: flex;
     justify-content: space-between;
     /* margin: 0 112px; */
@@ -147,6 +148,7 @@ hr {
     width: 200px;
     justify-content: space-around;
 }
+
 
 .nav_logo {
     width: 85px;

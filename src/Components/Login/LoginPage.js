@@ -19,13 +19,14 @@ const LoginPage = () => {
     username: "",
     password: "",
   });
-
   const [regUserData, setRegUserData] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,17 +41,25 @@ const LoginPage = () => {
     //     position: "top-right",
     //   });
     // }
-
-    if (isSuccess) {
-      toast.success("Registration successful! Please login.", {
-        postion: "top-right",
-      });
-    }
-
+    // if (isSuccess) {
+    //   toast.success("Registration successful! Please login.", {
+    //     postion: "top-right",
+    //   });
+    // }
     // dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onRegValChange = (e) => {
+    if (e.target.name === "confirmPassword") {
+      // console.log("RegUser values: ", e.target.name);
+      // console.log("RegUser password: ", regUserData.password);
+      // console.log("RegUser confirmPassword: ", regUserData.confirmPassword);
+      if (e.target.value !== regUserData.password) {
+        setErrorMessage(true);
+      } else {
+        setErrorMessage(false);
+      }
+    }
     setRegUserData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -111,31 +120,37 @@ const LoginPage = () => {
   const onRegister = (e) => {
     e.preventDefault();
 
-    if (regUserData.password !== regUserData.confirmPassword) {
-      toast.warning("Password and Confirm Password should be same!", {
-        position: "top-right",
-      });
-    } else {
-      const userData = {
-        userName: regUserData.username,
-        email: regUserData.email,
-        password: regUserData.password,
-      };
+    // if (regUserData.password !== regUserData.confirmPassword) {
+    //   toast.warning("Password and Confirm Password should be same!", {
+    //     position: "top-right",
+    //   });
+    // } else {
+    const userData = {
+      userName: regUserData.username,
+      email: regUserData.email,
+      password: regUserData.password,
+    };
 
-      // dispatch(register(userData));
-      dispatch(registerUser(userData)).then((result) => {
-        if (registerUser.fulfilled.match(result)) {
-          toast.success("User registered successfully!", {
-            position: "bottom-right",
-          });
-          setIsActive(true);
-        } else {
-          toast.error(`Failed to register user! ${result.payload}`, {
-            position: "bottom-right",
-          });
-        }
-      });
-    }
+    // dispatch(register(userData));
+    dispatch(registerUser(userData)).then((result) => {
+      if (registerUser.fulfilled.match(result)) {
+        toast.success("User registered successfully!", {
+          position: "top-right",
+        });
+        setIsActive(false);
+        setRegUserData({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+      } else {
+        toast.error(`Failed to register user! ${result.payload}`, {
+          position: "top-right",
+        });
+      }
+    });
+    // }
   };
 
   return (
@@ -188,6 +203,7 @@ const LoginPage = () => {
               onChange={onRegValChange}
               placeholder="Confirm Password"
             />
+            {errorMessage && <span>Password did not match</span>}
             <button type="submit" disabled={isLoading}>
               {isLoading ? "Signing Up..." : "Sign Up"}
             </button>
