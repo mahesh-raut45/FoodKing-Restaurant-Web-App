@@ -4,7 +4,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
-    const response = await fetch("http://localhost:8080/api/food/getAll");
+    // const response = await fetch("http://localhost:8080/api/food/getAll");   //doing it locally
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/api/food/getAll`
+    );
     const data = await response.json();
     // console.log("Response Data: ", data);
     return data;
@@ -15,7 +18,10 @@ export const fetchProducts = createAsyncThunk(
 export const fetchProductById = createAsyncThunk(
   "products/fetchProductById",
   async (id) => {
-    const response = await fetch(`http://localhost:8080/api/food/id/${id}`);
+    // const response = await fetch(`http://localhost:8080/api/food/id/${id}`);
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/api/food/id/${id}`
+    );
     const data = await response.json();
     console.log("Single Product: ", data);
     return data;

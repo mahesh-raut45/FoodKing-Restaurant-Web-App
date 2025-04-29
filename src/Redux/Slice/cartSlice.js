@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/cart/";
+// const API_URL = "http://localhost:8080/api/cart/";
 
 const INITIALSTATE = {
   cartItems: [],
@@ -59,7 +59,10 @@ export const { setCart, addToCart, removeFromCart, clearCart } =
 // fetch cart items by user id
 export const fetchCart = (userId) => async (dispatch) => {
   try {
-    const response = await axios.get(API_URL + `${userId}`);
+    // const response = await axios.get(API_URL + `${userId}`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/cart/${userId}`
+    );
     dispatch(setCart(response.data));
   } catch (error) {
     console.log("Error fetching cart: ", error);
@@ -69,8 +72,11 @@ export const fetchCart = (userId) => async (dispatch) => {
 // add item to cart
 export const addItemToCart = (userId, foodItemId, qty) => async (dispatch) => {
   try {
+    // const response = await axios.post(
+    //   API_URL + `${userId}/add/${foodItemId}/${qty}`
+    // );
     const response = await axios.post(
-      API_URL + `${userId}/add/${foodItemId}/${qty}`
+      `${process.env.REACT_APP_BASE_URL}/api/cart/${userId}/add/${foodItemId}/${qty}`
     );
     dispatch(setCart(response.data)); //update the cart after adding
   } catch (error) {
@@ -82,7 +88,10 @@ export const addItemToCart = (userId, foodItemId, qty) => async (dispatch) => {
 
 export const deleteCartItem = (userId, itemId) => async (dispatch) => {
   try {
-    await axios.delete(API_URL + `user/${userId}/item/${itemId}`);
+    // await axios.delete(API_URL + `user/${userId}/item/${itemId}`);
+    await axios.delete(
+      `${process.env.REACT_APP_BASE_URL}/api/cart//user/${userId}/item/${itemId}`
+    );
     dispatch(fetchCart(userId)); // fetch the updated cart items
   } catch (error) {
     console.log("Error deleting item", error);
