@@ -1,6 +1,5 @@
 import { Component } from "react";
 import styles from "./FoodCard.module.css";
-import { FaEye, FaMehRollingEyes, FaShoppingCart } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 

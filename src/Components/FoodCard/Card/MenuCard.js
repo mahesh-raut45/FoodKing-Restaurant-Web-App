@@ -15,7 +15,7 @@ const MenuCard = ({ id, name, rating, price, image }) => {
     <StyledWrapper>
       <div className="card">
         <div>
-          <img className="card-img" src={image} alt="item image" />
+          <img className="card-img" src={image} alt="item" />
         </div>
         <div className="card-info">
           <p className="text-title">{name}</p>

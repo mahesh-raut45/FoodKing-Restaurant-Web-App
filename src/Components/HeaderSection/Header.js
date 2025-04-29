@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import fried_Chicken from "../../photos/chiken.png";
 import whopper_burger from "../../photos/whopper_burger.png";

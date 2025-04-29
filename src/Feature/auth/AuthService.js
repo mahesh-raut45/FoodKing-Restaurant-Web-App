@@ -5,7 +5,7 @@ import axios from "axios";
 // Register user
 export const register = async (userData) => {
   const response = await axios.post(
-    `${process.env.REACT_APP_BASE_URL}/api/auth/` + "register",
+    `${process.env.REACT_APP_BASE_URL}/api/auth/register`,
     userData,
     {
       headers: { "Content-Type": "application/json" },
@@ -17,7 +17,7 @@ export const register = async (userData) => {
 // Login user
 export const login = async (userData) => {
   const response = await axios.post(
-    `${process.env.REACT_APP_BASE_URL}/api/auth/` + "login",
+    `${process.env.REACT_APP_BASE_URL}/api/auth/login`,
     userData
   );
 
