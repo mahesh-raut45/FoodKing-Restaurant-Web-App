@@ -88,7 +88,8 @@ const Nav = () => {
   const handleLogout = async () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    navigate("/");
+    // navigate("/");
+    window.location.href = "/";
   };
 
   return (

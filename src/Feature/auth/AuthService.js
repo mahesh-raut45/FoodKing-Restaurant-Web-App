@@ -53,7 +53,7 @@ export const login = async (userData) => {
 
   console.log("Response: ", response);
   if (response.data) {
-    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("token", response.data.text);
     localStorage.setItem("user", JSON.stringify(response.data));
   }
 

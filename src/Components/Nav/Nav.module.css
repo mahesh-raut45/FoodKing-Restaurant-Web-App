@@ -237,6 +237,7 @@ hr {
     transform: translateY(0);
     /* Move down to visible position */
     visibility: visible;
+    z-index: 1000;
 }
 
 .user_actions {

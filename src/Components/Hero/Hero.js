@@ -9,6 +9,7 @@ import { fetchProducts } from "../../Redux/Slice/productSlice";
 import { useNavigate } from "react-router-dom";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CardSceleton } from "../Skeleton/CardSceleton";
 
 const Hero = () => {
   const scrollContainerRef = useRef();
@@ -23,8 +24,10 @@ const Hero = () => {
 
   // - On mount, dispatches `fetchProducts` to populate the `products` list.
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
+    if (products.length === 0) {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, products.length]);
 
   /* - Sets an interval on mount to automatically scroll the product container forward every 3 seconds.
    *   (Assumes `scrollForward()` is a defined function that scrolls a referenced carousel container.)
@@ -112,7 +115,13 @@ const Hero = () => {
                   </li>
                 ))
               ) : (
-                <FontAwesomeIcon icon={faSpinner} spin />
+                // <FontAwesomeIcon icon={faSpinner} spin />
+                <>
+                  <CardSceleton />
+                  <CardSceleton />
+                  <CardSceleton />
+                  <CardSceleton />
+                </>
               )}
             </ul>
           </div>

@@ -126,7 +126,8 @@ const LoginPage = () => {
         // Fetch user details after setting token
         dispatch(fetchUserDetails);
 
-        navigate("/home");
+        // navigate("/home");
+        window.location.href = "/home";
       } else {
         toast.error(`Failed to login user! ${result.payload}`, {
           position: "top-right",

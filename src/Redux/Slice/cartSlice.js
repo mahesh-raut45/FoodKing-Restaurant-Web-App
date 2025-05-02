@@ -94,13 +94,15 @@ const cartSlice = createSlice({
  * @returns {Function} A thunk function that performs the async operation
  */
 export const fetchCart = (userId) => async (dispatch) => {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/cart/${userId}`
-    );
-    dispatch(setCart(response.data));
-  } catch (error) {
-    console.log("Error fetching cart: ", error);
+  if (userId) {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/cart/${userId}`
+      );
+      dispatch(setCart(response.data));
+    } catch (error) {
+      console.log("Error fetching cart: ", error);
+    }
   }
 };
 
