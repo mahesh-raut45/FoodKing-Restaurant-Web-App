@@ -16,6 +16,7 @@ import { ThemeProvider } from "@material-tailwind/react";
 import { ToastContainer } from "react-toastify";
 import FoodMenu from "./Components/FoodMenu/FoodMenu";
 import { ContactUs } from "./Components/ContactUs/ContactUs";
+import ScrollToTopOnNavigation from "./Components/Navigation/ScrollToTopOnNavigation";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -24,6 +25,7 @@ const App = () => {
       element: (
         <>
           <Nav />
+          <ScrollToTopOnNavigation />
           <Outlet />
           <DeliveryBanner />
         </>

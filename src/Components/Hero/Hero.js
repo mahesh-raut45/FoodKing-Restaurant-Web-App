@@ -21,16 +21,29 @@ const Hero = () => {
   const { products, status } = useSelector((state) => state.products);
   let LunchItems = [];
 
+  // - On mount, dispatches `fetchProducts` to populate the `products` list.
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
 
+  /* - Sets an interval on mount to automatically scroll the product container forward every 3 seconds.
+   *   (Assumes `scrollForward()` is a defined function that scrolls a referenced carousel container.)
+   */
   useEffect(() => {
     setInterval(() => {
       scrollForward();
     }, 3000);
   }, []);
 
+  /**
+   * Filters the full `products` list to extract only items categorized under "Lunch".
+   *
+   * Iterates through each `item` in `products`:
+   * - Checks if the `mealType` array includes the string `"Lunch"`.
+   * - If so, the item is added to the `LunchItems` array.
+   *
+   * Note: `mealType` is assumed to be an array of strings like ["Breakfast", "Lunch", "Dinner"].
+   */
   products.map((item) => {
     if (item.mealType.includes("Lunch")) {
       LunchItems.push(item);
@@ -56,7 +69,7 @@ const Hero = () => {
   };
 
   const goToFooItem = (id) => {
-    console.log(id);
+    // console.log(id);
     navigate(`/foodItem/${id}`);
   };
 

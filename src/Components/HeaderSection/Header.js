@@ -9,6 +9,23 @@ import { Link } from "react-router-dom";
 const names = ["Delicious FriedChicken", "Juicy Burger"];
 const itemList = [fried_Chicken, whopper_burger];
 
+/**
+ * Header component for the food ordering web app.
+ *
+ * - Displays a promotional section with alternating food item names and images.
+ * - Uses a timed interval (6 seconds) to switch between "Delicious FriedChicken" and "Juicy Burger".
+ * - Includes a "Order Now" button that navigates to the food menu.
+ * - Visually enhanced with animated text and rotating food imagery to attract users.
+ *
+ * State:
+ * - `index`: Determines the currently displayed food item and name.
+ *
+ * Side Effects:
+ * - A `setInterval` in `useEffect` to update the `index` every 6 seconds.
+ *
+ * Assets:
+ * - Uses local images (`chiken.png`, `whopper_burger.png`) and remote promotional graphics.
+ */
 const Header = () => {
   const [index, setIndex] = useState(0);
 

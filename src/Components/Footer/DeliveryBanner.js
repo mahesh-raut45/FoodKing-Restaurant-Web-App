@@ -140,7 +140,7 @@ class DeliveryBanner extends Component {
                       viewBox="0 0 32 32"
                       fill="currentColor"
                     >
-                      <path d="..." />
+                      {/* <path d="..." /> */}
                     </svg>
                   </a>
                   <a href="#" title="Twitter">
@@ -149,7 +149,7 @@ class DeliveryBanner extends Component {
                       viewBox="0 0 24 24"
                       fill="currentColor"
                     >
-                      <path d="..." />
+                      {/* <path d="..." /> */}
                     </svg>
                   </a>
                   <a href="#" title="Instagram">
@@ -158,7 +158,7 @@ class DeliveryBanner extends Component {
                       viewBox="0 0 32 32"
                       fill="currentColor"
                     >
-                      <path d="..." />
+                      {/* <path d="..." /> */}
                     </svg>
                   </a>
                 </div>

@@ -5,17 +5,25 @@ import MenuCard from "../FoodCard/Card/MenuCard";
 import { useEffect, useState } from "react";
 
 const FoodMenu = () => {
-  const { products, status } = useSelector((state) => state.products);
-  // const [isFiltered, setIsFiltered] = useState(false);
+  const { products } = useSelector((state) => state.products);
   const [filteredItems, setFilteredItems] = useState([]);
-  // const [searchedItems, setSearchedItems] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filters, setFilters] = useState({
     rating: null,
     pricaRange: null,
   });
 
-  // All filters are handled here
+  /**
+   * Filters the product list based on search text, rating, and price range.
+   *
+   * - **Search filter**: Filters products whose names include the search text (case insensitive).
+   * - **Rating filter**: Filters products with a rating of 4 or higher.
+   * - **Price filter**:
+   *   - Filters products with a price less than or equal to 300 when the "lt300" filter is selected.
+   *   - Filters products with a price between 300 and 600 when the "btw300-600" filter is selected.
+   *
+   * The filtered items are stored in `filteredItems` to update the UI based on the applied filters.
+   */
   useEffect(() => {
     let items = products;
 
@@ -71,44 +79,6 @@ const FoodMenu = () => {
       rating: "4",
     }));
   };
-
-  // useEffect(() => {
-  //   const items = searchText.trim()
-  //     ? products.filter((item) =>
-  //         item.name.toLowerCase().includes(searchText.toLowerCase())
-  //       )
-  //     : products;
-
-  //   setSearchedItems(items);
-  // }, [searchText]);
-
-  // // Less than 300 rs
-  // const handleLessThan = () => {
-  //   setIsFiltered(true);
-  //   const itmes = products.filter((item) => item.price <= 300);
-  //   setFilteredItems(itmes);
-  // };
-  // console.log("Filtered Items: ", filteredItems);
-
-  // clear all filters
-  // const handleClearFilter = () => {
-  //   setIsFiltered(false);
-  //   setFilteredItems([]);
-  // };
-
-  // // handle rating filter
-  // const handleRatingFilter = () => {
-  //   setIsFiltered(true);
-  //   let items;
-  //   if (filteredItems.length === 0) {
-  //     items = products.filter((item) => item.rating >= "4");
-  //   } else {
-  //     items = filteredItems.filter((item) => item.rating >= "4");
-  //   }
-
-  //   setFilteredItems(items);
-  // };
-  // console.log("Filtered Items: ", filteredItems);
 
   return (
     <>

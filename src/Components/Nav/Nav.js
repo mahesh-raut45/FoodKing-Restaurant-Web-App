@@ -14,7 +14,15 @@ const Nav = () => {
   const navigate = useNavigate();
   let cartItems = useSelector((state) => state.cart.cartItems);
 
-  // Setup an event listener for scrolling when the component mounts
+  /**
+   * Sets up a scroll event listener when the component mounts.
+   * Updates the `scrolled` state if the page is scrolled more than 49px vertically.
+   * Cleans up the event listener when the component unmounts or dependencies change.
+   *
+   * Dependencies:
+   * - `scrolled`: ensures state is updated only when necessary to avoid unnecessary re-renders.
+   * - `cartItems`: included if the scroll behavior is related to cart updates (consider removing if not needed).
+   */
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 49;
@@ -23,23 +31,24 @@ const Nav = () => {
       }
     };
 
-    // Add event listener
     window.addEventListener("scroll", handleScroll);
 
-    // Clean up event listener when component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scrolled, cartItems]);
+  }, [scrolled]);
 
-  // fetching user details from backend only if the token is saved
+  /**
+   * Fetches user details from the backend when the component mounts,
+   * but only if a valid token is already saved (handled inside fetchUserDetails).
+   *
+   * - If the user data is successfully retrieved and not null, navigates to the "/home" route.
+   * - Catches and logs any errors that occur during the fetch process.
+   *
+   * Dependency:
+   * - `navigate`: included to ensure navigation reference is up-to-date.
+   */
   useEffect(() => {
-    // get the token
-    // const token = localStorage.getItem("token");
-
-    // //if token is not saved, then, it'll return from here
-    // if (!token) return;
-
     const getUserData = async () => {
       try {
         const user = await fetchUserDetails();
@@ -56,15 +65,30 @@ const Nav = () => {
     getUserData();
   }, [navigate]);
 
-  // fethcing cart items from backend
+  /**
+   * Fetches cart items from the backend when the user's ID becomes available.
+   *
+   * - Triggers the `fetchCart` action using the Redux `dispatch` function.
+   * - Ensures that cart data is loaded only after user details (specifically `userDetails.id`) are set.
+   *
+   * Dependencies:
+   * - `userDetails?.id`: ensures the effect runs only when a valid user ID is available.
+   * - `dispatch`: included to satisfy React-Redux best practices.
+   */
   useEffect(() => {
     dispatch(fetchCart(userDetails?.id));
   }, [userDetails?.id, dispatch]);
 
+  /**
+   * Logs the user out by clearing local storage and navigating to the root page.
+   *
+   * - Removes authentication token and user info from localStorage.
+   * - Navigates to "/" using React Router without reloading the page.
+   */
   const handleLogout = async () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.href = "/";
+    navigate("/");
   };
 
   return (

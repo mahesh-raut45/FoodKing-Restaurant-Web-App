@@ -35,25 +35,33 @@ const LoginPage = () => {
     (state) => state.auth || {}
   );
 
-  useEffect(() => {
-    // if (isError) {
-    //   toast.error(message, {
-    //     position: "top-right",
-    //   });
-    // }
-    // if (isSuccess) {
-    //   toast.success("Registration successful! Please login.", {
-    //     postion: "top-right",
-    //   });
-    // }
-    // dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+  // useEffect(() => {
+  //   // if (isError) {
+  //   //   toast.error(message, {
+  //   //     position: "top-right",
+  //   //   });
+  //   // }
+  //   // if (isSuccess) {
+  //   //   toast.success("Registration successful! Please login.", {
+  //   //     postion: "top-right",
+  //   //   });
+  //   // }
+  //   // dispatch(reset());
+  // }, [user, isError, isSuccess, message, navigate, dispatch]);
 
+  /**
+   * Handles input changes for the registration form and validates the confirm password field.
+   *
+   * - When any input field changes, the corresponding value is updated in the `regUserData` state.
+   * - If the `confirmPassword` field is being updated, the function checks whether it matches
+   *   the current `password` value in state.
+   *   - If they don't match, it sets `errorMessage` to true to indicate a mismatch.
+   *   - If they match, it clears the error message.
+   *
+   * @param {Object} e - The event object from the input field change.
+   */
   const onRegValChange = (e) => {
     if (e.target.name === "confirmPassword") {
-      // console.log("RegUser values: ", e.target.name);
-      // console.log("RegUser password: ", regUserData.password);
-      // console.log("RegUser confirmPassword: ", regUserData.confirmPassword);
       if (e.target.value !== regUserData.password) {
         setErrorMessage(true);
       } else {
@@ -66,6 +74,14 @@ const LoginPage = () => {
     }));
   };
 
+  /**
+   * Updates the login form state (`loginUserData`) as the user types into input fields.
+   *
+   * - Dynamically updates the specific field (username or password) based on the input's `name` attribute.
+   * - Ensures the state reflects the latest user input.
+   *
+   * @param {Object} e - The event object triggered by the input change.
+   */
   const onLoginValChange = (e) => {
     setLoginUserData((prevState) => ({
       ...prevState,
@@ -74,7 +90,6 @@ const LoginPage = () => {
   };
 
   // for switching between sign in and sign up
-
   const handleRegister = () => {
     setIsActive(true);
   };
@@ -82,8 +97,18 @@ const LoginPage = () => {
     setIsActive(false);
   };
 
-  // on form submitting
-
+  /**
+   * Handles the login form submission.
+   *
+   * - Prevents default form behavior.
+   * - Prepares `userData` from the current login form state.
+   * - Dispatches the `loginUser` async thunk to attempt login.
+   * - Shows success or error toast notifications based on the login result.
+   * - On successful login, navigates the user to the home page and triggers user detail fetch.
+   * - Resets the login form fields.
+   *
+   * @param {Object} e - The form submission event object.
+   */
   const onLogin = (e) => {
     e.preventDefault();
 
@@ -91,8 +116,6 @@ const LoginPage = () => {
       userName: loginUserData.username,
       password: loginUserData.password,
     };
-
-    // dispatch(login(userData));
 
     dispatch(loginUser(userData)).then((result) => {
       if (loginUser.fulfilled.match(result)) {
@@ -117,14 +140,19 @@ const LoginPage = () => {
     });
   };
 
+  /**
+   * Handles the registration form submission.
+   *
+   * - Prevents default form behavior.
+   * - Prepares `userData` from the registration form state.
+   * - Dispatches the `registerUser` async thunk to register the user.
+   * - Shows success or error toast notifications based on the registration result.
+   * - On successful registration, resets the form fields and switches back to the login view.
+   *
+   * @param {Object} e - The form submission event object.
+   */
   const onRegister = (e) => {
     e.preventDefault();
-
-    // if (regUserData.password !== regUserData.confirmPassword) {
-    //   toast.warning("Password and Confirm Password should be same!", {
-    //     position: "top-right",
-    //   });
-    // } else {
     const userData = {
       userName: regUserData.username,
       email: regUserData.email,
@@ -150,7 +178,6 @@ const LoginPage = () => {
         });
       }
     });
-    // }
   };
 
   return (
@@ -180,7 +207,7 @@ const LoginPage = () => {
               value={regUserData.username}
               onChange={onRegValChange}
               placeholder="Username"
-              required
+              aria-required
             />
             <input
               type="email"

@@ -21,9 +21,6 @@ export const SingleFoodItem = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  // const cartItems = useSelector((state) => state.cart.cartItems);
-
-  // console.log("Cart Items: ", cartItems);
 
   const increaseQuantity = () => setQuantity(quantity + 1);
 
@@ -33,6 +30,15 @@ export const SingleFoodItem = () => {
   // taking from ProductSlice
   const { products, status, product } = useSelector((state) => state.products);
 
+  /**
+   * This effect fetches the user details after the component mounts.
+   * - Calls the `fetchUserDetails` function to retrieve the logged-in user's information from localStorage.
+   * - If a user is found, it updates the component state with the user's details.
+   * - If no user is found (i.e., the user is not logged in), it displays a toast notification
+   *   informing the user to log in and redirects them to the homepage.
+   *
+   * The effect runs only once, when the component is first mounted.
+   */
   useEffect(() => {
     const fetchUser = async () => {
       const user = await fetchUserDetails();
@@ -44,18 +50,21 @@ export const SingleFoodItem = () => {
         });
         navigate("/");
       }
-      // console.log("Logged user: ", user);
     };
     fetchUser();
   }, []);
-  // console.log("Logged user details: ", userDetails);
 
+  /**
+   * This effect filters out similar products based on the tags of the current product.
+   * - It runs whenever `products`, `product`, or `id` changes.
+   * - Filters the `products` array to find items that have at least one tag in common with the current product,
+   *   excluding the current product itself (by comparing the product `id`).
+   * - Sets the resulting similar products to the `similarProducts` state.
+   *
+   * The effect ensures that similar products are only calculated when the product details or the list of all products is updated.
+   */
   useEffect(() => {
     if (products.length > 0 && product) {
-      // const foundProd = products.find((prod) => prod.id === parseInt(id));
-      // if (foundProd) {
-      //   setProduct(foundProd);
-      // }
       const similar = products.filter(
         (item) =>
           item.tags &&
@@ -63,9 +72,23 @@ export const SingleFoodItem = () => {
             (type) => product.tags.includes(type) && item.id !== product.id
           )
       );
-      setSimilarProducts(similar);
+      setSimilarProducts(similar); // Store the similar products in the state
     }
   }, [products, product, id]);
+
+  // useEffect(() => {
+  //   if (products.length > 0 && product) {
+  //     const similar = products.filter(
+  //       (item) =>
+  //         item.tags &&
+  //         product.tags && // Add this check
+  //         item.tags.some(
+  //           (type) => product.tags.includes(type) && item.id !== product.id
+  //         )
+  //     );
+  //     setSimilarProducts(similar);
+  //   }
+  // }, [products, product, id]);
 
   useEffect(() => {
     // Scroll to top smoothly
@@ -73,19 +96,29 @@ export const SingleFoodItem = () => {
 
     dispatch(fetchProductById(id));
     dispatch(fetchProducts());
-  }, [dispatch, id]);
+  }, [id]);
 
-  // Add to cart functionality
+  /**
+   * Handles the addition of a product to the user's cart.
+   * - Dispatches the `addItemToCart` action with the user's ID, product ID, and quantity.
+   * - Updates the `isInCart` state to `true`, indicating the item is now in the cart.
+   *
+   * @param {Object} prod - The product being added to the cart.
+   * @param {number} qty - The quantity of the product being added.
+   */
   const handleAddToCart = (prod, qty) => {
-    // dispatch(addToCart(prod, qty));
-    // console.log("Added to cart: ", prod);
-
     dispatch(addItemToCart(userDetails.id, prod.id, qty));
-
     setIsInCart(true);
   };
 
-  // Remove from cart functionality
+  /**
+   * Handles the removal of a product from the user's cart.
+   * - Dispatches the `removeFromCart` action to remove the item with the given quantity.
+   * - Updates the `isInCart` state to `false`, indicating the item is no longer in the cart.
+   *
+   * @param {Object} prod - The product being removed from the cart.
+   * @param {number} qty - The quantity of the product being removed.
+   */
   const handleRemoveFromCart = (prod, qty) => {
     dispatch(removeFromCart(prod, qty));
     setIsInCart(false);
