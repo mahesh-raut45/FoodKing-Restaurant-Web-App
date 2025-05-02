@@ -97,9 +97,9 @@ const Hero = () => {
           <div className={styles.food_category_list} ref={scrollContainerRef}>
             <ul className={styles.food_category_slider}>
               {status === "succeeded" ? (
-                LunchItems.map((item) => (
+                LunchItems.map((item, index) => (
                   <li
-                    key={item.id}
+                    key={index}
                     onClick={() => goToFooItem(item.id)}
                     onMouseEnter={() => (isScrollBlocked.current = true)}
                     onMouseLeave={() => (isScrollBlocked.current = false)}

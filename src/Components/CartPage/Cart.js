@@ -79,7 +79,7 @@ const Cart = () => {
 
   // edit botton
   const editItem = (itemId) => {
-    console.log("item id: ", itemId);
+    // console.log("item id: ", itemId);
     navigate(`/foodItem/${itemId}`);
   };
 

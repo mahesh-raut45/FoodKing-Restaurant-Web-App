@@ -12,6 +12,7 @@ import React from "react";
 import { fetchUserDetails } from "../../Feature/auth/AuthService";
 import { toast } from "react-toastify";
 import HeaderComponent from "../HeaderComponent/HeaderComponent";
+import SingleItemSkeleton from "../Skeleton/SingleItemSkeleton";
 
 export const SingleFoodItem = () => {
   const [quantity, setQuantity] = useState(1);
@@ -132,57 +133,14 @@ export const SingleFoodItem = () => {
     <>
       <HeaderComponent title="Product Details" />
       {status === "loading" || !product ? (
-        <div className="p-6 rounded-lg shadow-lg bg-gray-100 animate-pulse max-w-4xl mx-auto">
-          <div className="flex flex-col md:flex-row gap-6">
-            {/* Image Skeleton */}
-            <div className="w-full md:w-1/2 h-64 bg-gray-300 rounded-lg"></div>
-
-            {/* Right Side Skeleton */}
-            <div className="w-full md:w-1/2 space-y-4">
-              <div className="h-4 w-32 bg-gray-300 rounded"></div>
-              <div className="h-6 w-3/4 bg-gray-300 rounded"></div>
-
-              {/* Price & Discount Skeleton */}
-              <div className="flex items-center gap-3">
-                <div className="h-6 w-16 bg-gray-300 rounded"></div>
-                <div className="h-4 w-12 bg-gray-300 rounded"></div>
-              </div>
-
-              {/* Quantity Buttons Skeleton */}
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 bg-gray-300 rounded"></div>
-                <div className="h-8 w-12 bg-gray-300 rounded"></div>
-                <div className="h-8 w-8 bg-gray-300 rounded"></div>
-              </div>
-
-              {/* Button Skeleton */}
-              <div className="h-12 w-full bg-gray-300 rounded"></div>
-
-              {/* Ratings Skeleton */}
-              <div className="flex items-center gap-2">
-                <div className="h-4 w-4 bg-gray-300 rounded"></div>
-                <div className="h-4 w-20 bg-gray-300 rounded"></div>
-              </div>
-
-              {/* Cuisine Skeleton */}
-              <div className="h-4 w-32 bg-gray-300 rounded"></div>
-
-              {/* Tags Skeleton */}
-              <div className="flex flex-wrap gap-2">
-                <div className="h-4 w-20 bg-gray-300 rounded"></div>
-                <div className="h-4 w-16 bg-gray-300 rounded"></div>
-                <div className="h-4 w-24 bg-gray-300 rounded"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SingleItemSkeleton />
       ) : (
         // <p> Loading...</p>
         <div className={styles.container}>
           {/* Left Side - Food Image */}
           <div className={styles.imageContainer}>
             <img
-              src={product.image} // Replace with actual image
+              src={product.image}
               alt="Food Item"
               className={styles.foodImage}
             />
@@ -254,8 +212,8 @@ export const SingleFoodItem = () => {
             <h4>Cuisine : {product.cuisine}</h4>
             <h4>
               Tags:{" "}
-              {product.tags.map((tag) => (
-                <span className={styles.rating}>{`${tag},  `}</span>
+              {product.tags.map((tag, index) => (
+                <span key={index} className={styles.rating}>{`${tag},  `}</span>
               ))}
             </h4>
           </div>
@@ -264,8 +222,8 @@ export const SingleFoodItem = () => {
       <div className={styles.similarItems}>
         <h2>Similar Dishes</h2>
         <div className={styles.similarProductsContainer}>
-          {similarProducts.map((product) => (
-            <li key={product.id} onClick={() => goToFoodItem(product.id)}>
+          {similarProducts.map((product, index) => (
+            <li key={index} onClick={() => goToFoodItem(product.id)}>
               <Card product={product} />
             </li>
           ))}

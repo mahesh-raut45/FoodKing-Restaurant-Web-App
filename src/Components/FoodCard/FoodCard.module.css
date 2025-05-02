@@ -16,9 +16,6 @@
     /* transition: all 0.6s ease-in-out; */
 }
 
-/* .container:hover .food_item {
-    transform: scale(1.1);
-} */
 
 .container::before {
     position: absolute;

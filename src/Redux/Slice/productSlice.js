@@ -39,7 +39,7 @@ export const fetchProductById = createAsyncThunk(
       `${process.env.REACT_APP_BASE_URL}/api/food/id/${id}`
     );
     const data = await response.json();
-    console.log("Single Product: ", data);
+    // console.log("Single Product: ", data);
     return data;
   }
 );
