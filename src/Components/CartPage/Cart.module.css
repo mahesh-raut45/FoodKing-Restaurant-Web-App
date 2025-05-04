@@ -45,7 +45,7 @@
 .body_row td {
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
-    font-size: 19px;
+    font-size: 1rem;
 }
 
 tbody input {
@@ -195,7 +195,7 @@ tbody input {
     cursor: pointer;
     transition: all 0.6s ease;
     border: none;
-    font-size: 25px;
+    font-size: 1.5rem;
     font-weight: 700;
     text-transform: uppercase;
 }

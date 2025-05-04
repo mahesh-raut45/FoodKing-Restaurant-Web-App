@@ -135,13 +135,13 @@ const Nav = () => {
                 alt="social"
               />
             </a>
-            <a href="#">
+            {/* <a href="#">
               <img
                 className={styles.small_icon}
                 src="https://cdn-icons-png.flaticon.com/128/49/49440.png"
                 alt="social"
               />
-            </a>
+            </a> */}
           </div>
         </div>
       )}

@@ -225,8 +225,8 @@ hr {
 
 .logged_user p {
     margin: 0;
-    font-size: 15px;
-    font-weight: 800;
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--orange);
     font-family: 'ADLaM Display';
     letter-spacing: 3px;
