@@ -63,43 +63,7 @@
     left: 52%;
 }
 
-/* Mobile view */
 
-@media (max-width: 480px) {
-    .container {
-        width: 90%;
-        margin: 50px auto;
-    }
-
-    .background_banner {
-        height: 100px;
-        padding: 31px 30px
-    }
-
-    .background_banner h2 {
-        font-size: 17px;
-    }
-
-    .small {
-        font-size: 8px;
-    }
-
-    .delivery_man {
-        height: 100px;
-        position: absolute;
-        top: 18px !important;
-        right: 0px;
-    }
-
-    .frame_shape,
-    .arrow_shape {
-        visibility: hidden;
-    }
-
-    .delivery_man img {
-        width: 180px;
-    }
-}
 
 /* **** Footer Section */
 
@@ -232,4 +196,84 @@
     font-size: 0.875rem;
     color: #9ca3af;
     /* gray-400 */
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        margin: 60px auto;
+    }
+
+    .background_banner {
+        padding: 47px 10px;
+        height: auto;
+    }
+
+    .title_heading {
+        font-size: 1.3rem;
+    }
+
+    .small {
+        font-size: 0.6rem !important;
+    }
+
+    .arrow_shape,
+    .frame_shape {
+        display: none;
+    }
+
+    .delivery_man {
+        position: absolute;
+        right: 0%;
+        width: 133px;
+        height: 150px;
+    }
+
+    .delivery_man img {
+        left: -96px;
+        position: absolute;
+        width: -webkit-fill-available;
+        top: 72px;
+    }
+
+    .logoWrapper {
+        flex-direction: column;
+        margin-bottom: 30px;
+    }
+
+    .brandName {
+        font-size: 1.5em;
+    }
+
+    .grid,
+    .gridLg {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .footer {
+        padding: 1rem 1rem 2rem 1rem;
+    }
+
+    .containerRow {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .contact_us {
+        width: 104px;
+        height: 33px;
+        margin-top: 0;
+        font-size: 11px;
+    }
+
+    .heading {
+        font-size: small;
+    }
 }

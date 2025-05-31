@@ -92,6 +92,10 @@ const Nav = () => {
     window.location.href = "/";
   };
 
+  const navigateToUser = () => {
+    navigate("user");
+  };
+
   return (
     <>
       {/* Conditionally render `nav_top` only if the user has not scrolled */}
@@ -174,7 +178,7 @@ const Nav = () => {
             {/* <p className={styles.nav_contactus}>CONTACT US</p> */}
             {userDetails ? (
               <>
-                <div className={styles.logged_user}>
+                <div onClick={navigateToUser} className={styles.logged_user}>
                   <img src={man} alt="user" />
                   <p>{userDetails.userName}</p>
                   <ul className={styles.user_actions}>

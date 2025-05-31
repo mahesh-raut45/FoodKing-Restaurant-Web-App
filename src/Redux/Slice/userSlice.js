@@ -66,6 +66,24 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   logout();
 });
 
+// // Thunk:`getUserById`: Get user by id
+// export const getUserById = createAsyncThunk(
+//   "auth/getUser",
+//   async (userId, thunkAPI) => {
+//     try {
+//       return await getUser(userId);
+//     } catch (error) {
+//       const message =
+//         (error.response &&
+//           error.response.data &&
+//           error.response.data.message) ||
+//         error.message ||
+//         error.toString();
+//       return thunkAPI.rejectWithValue(message);
+//     }
+//   }
+// );
+
 // slice
 const userSlice = createSlice({
   name: "auth",

@@ -17,6 +17,7 @@ import { ToastContainer } from "react-toastify";
 import FoodMenu from "./Components/FoodMenu/FoodMenu";
 import { ContactUs } from "./Components/ContactUs/ContactUs";
 import ScrollToTopOnNavigation from "./Components/Navigation/ScrollToTopOnNavigation";
+import UserProfile from "./Components/UserProfile/UserProfile";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -49,6 +50,7 @@ const App = () => {
         { path: "food-menu", element: <FoodMenu /> },
         { path: "reservations", element: <Reservation /> },
         { path: "contact-us", element: <ContactUs /> },
+        { path: "user", element: <UserProfile /> },
       ],
     },
     {
