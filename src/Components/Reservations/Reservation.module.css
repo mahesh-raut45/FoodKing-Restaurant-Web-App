@@ -1,87 +1,93 @@
-.back_btn {
-    display: inline-block;
-    border: 1px solid;
-    /* justify-content: flex-start; */
-    padding: 7px;
-    background-color: var(--orange);
-    color: var(--white);
-    border-radius: 10px;
+.wrapper {
+    padding: 2rem;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    /* background: linear-gradient(135deg, #fff7f0, #ffeedd); */
+    min-height: 100vh;
+}
+
+.backButton {
+    background-color: #ff6b35;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
     cursor: pointer;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    transition: background 0.3s ease;
 }
 
-.seat_images {
-    display: inline-flex;
-    gap: 72px;
-    margin: 10px;
-    /* width: 76%;
-    justify-content: space-between; */
-}
-
-.seat_images img {
-    width: 203px;
-    border-radius: 50%;
+.backButton:hover {
+    background-color: #e65a28;
 }
 
 .container {
-    /* border: 2px solid black; */
-    width: 1000px;
-    height: 800px;
-    margin: 0 auto;
-    /* background: url(https://img.freepik.com/premium-vector/food-drink-pattern-background_554445-949.jpg?w=740); */
-    background: var(--button);
-    background-size: cover;
+    background-color: #ffffffee;
     border-radius: 20px;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-.reservations {
-    width: 80%;
-    /* border: 1px solid black; */
-    height: 100%;
-    margin: 40px auto;
-    text-align: center;
-    color: var(--white);
+.imageGallery {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.imageGallery img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .title {
-    font-size: 44px;
-    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #333;
     text-transform: uppercase;
+    font-weight: 700;
 }
 
-.reservation_form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
-    justify-content: center;
-    align-items: center;
+.form {
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-.rows {
-    width: 350px;
-    height: 65px;
-}
-
-.rows input {
-    width: 350px;
-    height: 65px;
-    background: border-box;
-    /* border: 1px solid #9450c8; */
+.form input {
+    padding: 1rem;
+    border: 2px solid #ccc;
     border-radius: 10px;
-    font-size: 20px;
-    background: var(--bg);
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: border 0.3s ease;
 }
 
-.input_wide {
-    width: 50%;
+.form input:focus {
+    border-color: #ff6b35;
+    outline: none;
 }
 
-.reservation_form button {
-    width: 83%;
-    height: 62px;
-    font-size: 30px;
-    font-weight: 900;
+.form button {
+    grid-column: 1 / -1;
+    padding: 1rem;
+    background-color: #ff6b35;
+    color: #fff;
+    font-size: 1.2rem;
     border: none;
-    border-radius: 15px;
-    background: var(--border2);
-    color: var(--white);
+    border-radius: 12px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background-color: #e65a28;
 }

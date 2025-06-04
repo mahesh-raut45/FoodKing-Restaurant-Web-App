@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Reservation.module.css";
+import HeaderComponent from "../HeaderComponent/HeaderComponent";
 
 const Reservation = () => {
   const navigate = useNavigate();
@@ -7,49 +8,44 @@ const Reservation = () => {
   const handleNavigate = () => {
     navigate("/home");
   };
+
   return (
     <>
-      <h2 className={styles.back_btn} onClick={handleNavigate}>
-        {"<"} Home Page
-      </h2>
-      {/* <h1>Reservations</h1> */}
-      <div className={styles.container}>
-        <div className={styles.reservations}>
-          <div className={styles.seat_images}>
+      <HeaderComponent title="reservation" />
+      <section className={styles.wrapper}>
+        {/* <button className={styles.backButton} onClick={handleNavigate}>
+          &larr; Home
+        </button> */}
+
+        <div className={styles.container}>
+          <div className={styles.imageGallery}>
             <img
               src="https://static.wixstatic.com/media/0c647f_a1e555188acf4363820fbbd10fe90818~mv2.jpg/v1/fit/w_2500,h_1330,al_c/0c647f_a1e555188acf4363820fbbd10fe90818~mv2.jpg"
-              alt="img"
+              alt="Restaurant seating"
             />
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu6e9vLtioBRs0NxQ0d4X5p9dMr9albcER3m4hBR-7zFLLRf91G6MlPFBkVnlWknK4p7M&usqp=CAU"
-              alt="img"
+              alt="Dining space"
             />
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShvAVWhmjZcwQ93targVIp7KEvNZmnEg6SSu41i8ZrzVpkfODpfffEklcJRpK2VmCE8N8&usqp=CAU"
-              alt="img"
+              alt="Food ambiance"
             />
           </div>
-          <h3 className={styles.title}>create an reservation</h3>
-          <form className={styles.reservation_form} onSubmit={() => {}}>
-            <div className={styles.rows}>
-              <input type="text" placeholder="Enter Name..." />
-            </div>
-            <div className={styles.rows}>
-              <input type="text" placeholder="Select people..." />
-            </div>
-            <div className={styles.rows}>
-              <input type="number" placeholder="Enter Number..." />
-            </div>
-            <div className={styles.rows}>
-              <input type="date" placeholder="Enter Date..." />
-            </div>
-            <div className={`${styles.rows} ${styles.input_wide}`}>
-              <input type="email" placeholder="Enter Email..." />
-            </div>
-            <button>Book A Table</button>
+
+          <h2 className={styles.title}>Book Your Table</h2>
+
+          <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+            <input type="text" placeholder="Full Name" required />
+            <input type="number" placeholder="Number of Guests" required />
+            <input type="tel" placeholder="Phone Number" required />
+            <input type="date" required />
+            <input type="email" placeholder="Email Address" required />
+
+            <button type="submit">Reserve Now</button>
           </form>
         </div>
-      </div>
+      </section>
     </>
   );
 };

@@ -19,11 +19,13 @@ class DeliveryBanner extends Component {
               </h2>
             </div>
             <div>
-              <Button
-                background={true}
-                icon={<TbTruckDelivery />}
-                text="Order Now"
-              />
+              <Link to={"/food-menu"}>
+                <Button
+                  background={true}
+                  icon={<TbTruckDelivery />}
+                  text="Order Now"
+                />
+              </Link>
             </div>
             <div className={styles.arrow_shape}>
               <img

@@ -83,6 +83,10 @@ const Cart = () => {
     navigate(`/foodItem/${itemId}`);
   };
 
+  const handleCheckout = () => {
+    navigate("/checkout");
+  };
+
   return (
     <>
       <HeaderComponent title="Shop Cart" />
@@ -199,7 +203,7 @@ const Cart = () => {
           </ul>
           <div className={styles.checkout_btn}>
             {/* <Button text="Checkout" /> */}
-            <button>Checkout</button>
+            <button onClick={handleCheckout}>Checkout</button>
           </div>
         </div>
       </div>

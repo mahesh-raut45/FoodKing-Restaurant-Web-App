@@ -18,6 +18,7 @@ import FoodMenu from "./Components/FoodMenu/FoodMenu";
 import { ContactUs } from "./Components/ContactUs/ContactUs";
 import ScrollToTopOnNavigation from "./Components/Navigation/ScrollToTopOnNavigation";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import { Checkout } from "./Components/Checkout/Checkout";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -47,6 +48,7 @@ const App = () => {
         },
         { path: "foodItem/:id", element: <SingleFoodItem /> },
         { path: "cart/user/:id", element: <Cart /> },
+        { path: "checkout", element: <Checkout /> },
         { path: "food-menu", element: <FoodMenu /> },
         { path: "reservations", element: <Reservation /> },
         { path: "contact-us", element: <ContactUs /> },
